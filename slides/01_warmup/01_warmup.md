@@ -6,7 +6,7 @@ autosize: true
 font-family: 'Gill Sans'
 transition: none
 
-A bit of probability and a bit of R  
+A bit of probability and a bit of R to get the semester started.
 
 <style>
 .small-code pre code {
@@ -44,8 +44,8 @@ Probability basics
 
 Some probabilities are estimated from direct experience over the long run:  
 - P(newborn baby is a boy) = $\frac{106}{206}$  
-- P(death due to car accident) = $\frac{11}{100,000}$  
-- P(death due to any cause) = $1$  
+- P(death due to car accident over a one year period) = $\frac{12}{100,000}$  
+- P(living forever) = $0$  
 
 
 Probability basics
@@ -53,8 +53,8 @@ Probability basics
 
 Some probabilities are estimated from direct experience over the long run:  
 - P(newborn baby is a boy) = $\frac{106}{206}$  
-- P(death due to car accident) = $\frac{11}{100,000}$  
-- P(death due to any cause) = $1$  
+- P(death due to car accident over a one year period) = $\frac{12}{100,000}$  
+- P(living forever) = $0$  
 
 Others are synthesized from our best judgments about unique events:  
 - P(Apple stock goes up after next earnings call) = $0.54$  
@@ -78,50 +78,52 @@ Consider an uncertain outcome with where $\Omega$ is the set of all possible out
 
 
 
-Probability calculus  
-=========
+<!-- Probability calculus   -->
+<!-- ========= -->
 
-The "probability calculus" provides a set of rules for calculating probabilities.  _These aren't axioms_: they can be derived from Kolmogorov's axioms.  
+<!-- The "probability calculus" provides a set of rules for calculating probabilities.  _These aren't axioms_: they can be derived from Kolmogorov's axioms.   -->
 
-  1. $P(A^C) = 1 - P(A)$  
-  (Why?  Because $A \cup A^C = \Omega$, and $P(\Omega) = 1$.)   
-  
-  2. If $A \subset B$, then $P(A) \leq P(B)$.  
-  (Why?  Write $B$ as $B = A \cup (B \setminus A)$ and use finite additivity.  )
+<!--   1. $P(A^C) = 1 - P(A)$   -->
+<!--   (Why?  Because $A \cup A^C = \Omega$, and $P(\Omega) = 1$.)    -->
 
-  3. $P(B \setminus A) = P(B) - P(A \cap B)$.  
-  
-  4. Addition rule: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.  
+<!--   2. If $A \subset B$, then $P(A) \leq P(B)$.   -->
+<!--   (Why?  Write $B$ as $B = A \cup (B \setminus A)$ and use finite additivity.  ) -->
 
+<!--   3. $P(B \setminus A) = P(B) - P(A \cap B)$.   -->
 
-
-Quick example
-=========
-
-Someone deals you a five-card poker hand.  What is the probability of either a straight (five cards in a row, e.g. 3-4-5-6-7) or a flush (all cards the same suit)?
-
-Note: these aren't mutually exclusive, since you might draw a hand that is both a straight AND a flush (e.g. 5-6-7-8-9 of clubs).  
-
-<img src="fig/straight_flush.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="600px" style="display: block; margin: auto;" />
+<!--   4. Addition rule: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.   -->
 
 
-Quick example
-=========
 
-If all 2,598,960 poker hands are equally likely, then:
-- P(flush) = 0.00198079 (5,148 possible flushes)
-- P(straight) = 0.00392465 (10,240 possible straights.) 
-- P(straight and flush) = 0.0000153908 (40 possible straight flushes)  
+<!-- Quick example -->
+<!-- ========= -->
 
-So by the addition rule:
+<!-- Someone deals you a five-card poker hand.  What is the probability of either a straight (five cards in a row, e.g. 3-4-5-6-7) or a flush (all cards the same suit)? -->
 
-$$
-\begin{aligned}
-P(\mbox{straight or flush}) &= P(\mbox{straight}) + P(\mbox{flush}) - P(\mbox{straight AND flush}) \\
-&= 0.00392465 + 0.00198079 - 0.0000153908 \\
-&= 0.005890049
-\end{aligned}  
-$$
+<!-- Note: these aren't mutually exclusive, since you might draw a hand that is both a straight AND a flush (e.g. 5-6-7-8-9 of clubs).   -->
+
+<!-- ```{r, out.width = "600px", fig.align='center', echo=FALSE} -->
+<!-- knitr::include_graphics("fig/straight_flush.png") -->
+<!-- ``` -->
+
+
+<!-- Quick example -->
+<!-- ========= -->
+
+<!-- If all 2,598,960 poker hands are equally likely, then: -->
+<!-- - P(flush) = 0.00198079 (5,148 possible flushes) -->
+<!-- - P(straight) = 0.00392465 (10,240 possible straights.)  -->
+<!-- - P(straight and flush) = 0.0000153908 (40 possible straight flushes)   -->
+
+<!-- So by the addition rule: -->
+
+<!-- $$ -->
+<!-- \begin{aligned} -->
+<!-- P(\mbox{straight or flush}) &= P(\mbox{straight}) + P(\mbox{flush}) - P(\mbox{straight AND flush}) \\ -->
+<!-- &= 0.00392465 + 0.00198079 - 0.0000153908 \\ -->
+<!-- &= 0.005890049 -->
+<!-- \end{aligned}   -->
+<!-- $$ -->
 
 
 
@@ -134,6 +136,7 @@ A conditional probability is the chance that one thing happens, given that some 
 A great example is a weather forecast: if you look outside this morning and see gathering clouds, you might assume that rain is likely and carry an umbrella.  
 
 We express this judgment as a conditional probability: e.g. "the conditional probability of rain this afternoon, given clouds this morning, is 60%."  
+
 
 Conditional probability  
 =========
@@ -177,7 +180,7 @@ Conditional probability
 - A: "you can dribble a basketball"  
 - B: "you play in the NBA"  
 
-<img src="fig/kawhi_leonard.jpg" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="500px" style="display: block; margin: auto;" />
+<img src="fig/kawhi_leonard.jpg" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="500px" style="display: block; margin: auto;" />
 
 Clearly $P(A \mid B) = 1$: every NBA player can dribble a basketball.    
 
@@ -190,7 +193,7 @@ Conditional probability
 - A: "you can dribble a basketball"  
 - B: "you play in the NBA"  
 
-<img src="fig/grandpa_basketball.jpg" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="500px" style="display: block; margin: auto;" />
+<img src="fig/grandpa_basketball.jpg" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="500px" style="display: block; margin: auto;" />
 
 
 But $P(B \mid A)$ is nearly zero! 
@@ -203,9 +206,9 @@ But $P(B \mid A)$ is nearly zero!
 The multiplication rule
 =========
 
-We've met Kolmogorov's three axioms, together with several rules we can derive from these axioms.
+We've met Kolmogorov's three axioms, but there's one final axiom for conditional probability, often called the _multiplication rule_.
 
-There's one final axiom for conditional probability, often called the _multiplication rule_.  Let $P(A, B) = P(A \cap B)$ be the _joint probability_ that both $A$ and $B$ happen.  Then:
+Let $P(A, B) = P(A \cap B)$ be the _joint probability_ that both $A$ and $B$ happen.  Then:
 
 \begin{equation}
 \label{eqn:conditional_probability}
@@ -227,7 +230,7 @@ Conditional probability
 Let's see why this axiom makes sense.  (Figure courtesy David Speigelhalter and Jenny Gage.)
 
 
-<img src="fig/breast_cancer_screening_tree.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="650px" style="display: block; margin: auto;" />
+<img src="fig/breast_cancer_screening_tree.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="650px" style="display: block; margin: auto;" />
 
 
 
@@ -280,7 +283,7 @@ Conditional probabilities from data
 
 Solution: go to the data!  Suppose your database on 5 million subscribers like Linda reveals the following pattern:  
 
-<img src="fig/netflix_table1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="650px" style="display: block; margin: auto;" />
+<img src="fig/netflix_table1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="650px" style="display: block; margin: auto;" />
 
 Then 
 
@@ -304,7 +307,7 @@ Many companies do the same:
 - Google for web pages  
 - etc
 
-The digital economy runs on conditional probability!  
+The digital economy runs on conditional probability. 
 
 
 Conditional probabilities from data
@@ -702,7 +705,7 @@ Solution:
 Example: the hot hand  
 ========
 
-<img src="fig/nbajam.jpg" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="600px" style="display: block; margin: auto;" />
+<img src="fig/nbajam.jpg" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="600px" style="display: block; margin: auto;" />
 
 NBA Jam c. 1993  
 
@@ -736,7 +739,7 @@ Let's look at the data...
 
 ***
 
-<img src="fig/julius_irving.jpg" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="350px" style="display: block; margin: auto;" />
+<img src="fig/julius_irving.jpg" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="350px" style="display: block; margin: auto;" />
 
 
 Example: the hot hand  
@@ -778,7 +781,7 @@ What's wrong here?
 
 ***
 
-<img src="fig/colorblind_sweater.jpg" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="350px" style="display: block; margin: auto;" />
+<img src="fig/colorblind_sweater.jpg" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="350px" style="display: block; margin: auto;" />
 
 
 
@@ -842,8 +845,8 @@ Return to `predimed_intro.R`.
 
 Check the data to answer these questions:
 - Are cardiac events independent of sex?  
-- Are cardiac events independent of sex, given diet?
-- Are cardiac events independent of sex, given hypertension status (htn)?
+- Are cardiac events conditionally independent of sex, given diet?  Hint: estimate P(cardiac event | Mediterranean diet, male) and P(cardiac event | Mediterranean diet, female)
+- Are cardiac events conditionally independent of sex, given hypertension status (htn)?
 
 
 
@@ -971,3 +974,5 @@ Bayes' Rule in the real world
 - Self-driving cars  
 - [Neural decoding in next-gen prostheses](https://www.youtube.com/watch?v=WV0bJkk86pw).  ([Longer New Yorker article here.)](https://www.newyorker.com/magazine/2018/11/26/how-to-control-a-machine-with-your-brain)  
 - etc!  
+
+

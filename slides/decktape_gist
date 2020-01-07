@@ -1,0 +1,1 @@
+~/node_modules/decktape/decktape.js source.html target.pdf -s '1280x960'

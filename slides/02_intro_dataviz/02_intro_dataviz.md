@@ -13,10 +13,7 @@ transition: none
 }
 </style>
 
-```{r setup, echo=FALSE, display=FALSE}
-opts_chunk$set(cache=TRUE)
-library(tidyverse)
-```
+
 
 
 
@@ -64,9 +61,18 @@ class: small-code
 
 Here are several rows of a data frame about cars.  Every row is a car.  Every column is a feature describing the car.  
 
-```{r, fig.width = 8, fig.height = 4.5, fig.align='center', echo=FALSE}
-data(mpg)
-mosaic::sample(mpg, 6)
+
+```
+# A tibble: 6 x 12
+  manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
+  <chr>        <chr> <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr>
+1 ford         f150…   4.6  1999     8 manu… 4        13    16 r     pick…
+2 toyota       camr…   2.4  2008     4 auto… f        22    31 r     comp…
+3 ford         expe…   5.4  1999     8 auto… r        11    17 r     suv  
+4 hyundai      tibu…   2.7  2008     6 manu… f        16    24 r     subc…
+5 nissan       path…   3.3  1999     6 manu… 4        15    17 r     suv  
+6 chevrolet    corv…   6.2  2008     8 manu… r        16    26 p     2sea…
+# … with 1 more variable: orig.id <chr>
 ```
 
 
@@ -76,12 +82,7 @@ class: small-code
 
 For numerical data, our workhorse is the humble scatter plot. 
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=FALSE}
-data(mpg)
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  theme_bw(base_size=18)
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 Scatter plots 
 ========
@@ -90,12 +91,7 @@ class: small-code
 There are lots of strategies for enriching a scatter plot with additional information.  We can color points according to a key...
 
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=FALSE}
-data(mpg)
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color=class)) + 
-  theme_bw(base_size=18)
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
 Scatter plots: faceting
 ========
@@ -103,13 +99,7 @@ class: small-code
 
 Or _facet_ on a third variable...
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=FALSE}
-data(mpg)
-ggplot(data = filter(mpg, class!='2seater')) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(class~.) + 
-  theme_bw(base_size=18)
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
 
 Line graphs
@@ -117,17 +107,7 @@ Line graphs
 
 When it's important to emphasize continuity of a set of points (e.g. over time), use a line graph.  
 
-```{r, fig.width = 9, fig.height = 5, fig.align='center', echo=FALSE}
-toyimports = read.csv('./data/toyimports.csv')
-
-uk_toys = toyimports %>% filter(partner_name == 'United Kingdom') %>%
-  group_by(year) %>% summarize(toys = sum(US_report_import))
-
-ggplot(uk_toys) + 
-  geom_line(aes(x=year, y=toys), color='blue') + 
-  theme_bw(base_size=18) +
-  scale_x_continuous(breaks = 1996:2005)
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 Total value of toy imports from the United Kingdom over time (thousands USD).  Q: what might account for the big spikes?
 
@@ -137,20 +117,7 @@ Line graphs
 
 Actually, all those Harry Potter toys come from China...
 
-```{r, fig.width = 9, fig.height = 5, fig.align='center', echo=FALSE}
-toyimports = read.csv('./data/toyimports.csv')
-
-country_list = c('China', 'Korea, Rep.', 'United Kingdom')
-
-combined_toys = toyimports %>% filter(partner_name %in% country_list) %>%
-  group_by(year, partner_name) %>%
-  summarize(toys = sum(US_report_import))
-
-ggplot(combined_toys) + 
-  geom_line(aes(x=year, y=toys, color=partner_name)) +
-  theme_bw(base_size=18) +
-  scale_x_continuous(breaks = 1996:2005)
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 
 
 Line graphs
@@ -158,12 +125,7 @@ Line graphs
 
 This is what logarthimic scales were invented for :-)
 
-```{r, fig.width = 9, fig.height = 5, fig.align='center', echo=FALSE}
-ggplot(combined_toys) + 
-  geom_line(aes(x=year, y=toys, color=partner_name)) +
-  theme_bw(base_size=18) +
-  scale_x_continuous(breaks = 1996:2005) + scale_y_log10()
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 Note: OK not to start this $y$ axis at 0, because we don't use height to judge relative size on a log scale.  
 
@@ -175,9 +137,15 @@ class: small-code
 
 Here are the first several rows of a data frame about passengers on the Titanic.  Every row is a passenger.  Every column is a feature describing the passenger.  
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=FALSE}
-TitanicSurvival = read.csv('./data/TitanicSurvival.csv')
-head(TitanicSurvival)
+
+```
+                             name survived    sex     age passengerClass
+1   Allen, Miss. Elisabeth Walton      yes female 29.0000            1st
+2  Allison, Master. Hudson Trevor      yes   male  0.9167            1st
+3    Allison, Miss. Helen Loraine       no female  2.0000            1st
+4 Allison, Mr. Hudson Joshua Crei       no   male 30.0000            1st
+5 Allison, Mrs. Hudson J C (Bessi       no female 25.0000            1st
+6             Anderson, Mr. Harry      yes   male 48.0000            1st
 ```
 
 We see both categorical (sex, passengerClass, survived) and numerical (age) variables.  
@@ -188,8 +156,16 @@ class: small-code
 
 A natural thing might be to cross-tabulate survival by passenger class:
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center'}
+
+```r
 xtabs(~survived + passengerClass, data=TitanicSurvival)
+```
+
+```
+        passengerClass
+survived 1st 2nd 3rd
+     no  123 158 528
+     yes 200 119 181
 ```
 
 We're literally just counting how many passengers have each combination of features.  (If you know Excel: this is like a pivot table.)
@@ -202,18 +178,28 @@ class: small-code
 
 A really useful operation is _piping._  Example:
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center'}
+
+```r
 a = log(3)
 b = exp(a)
 c = sqrt(b)
 c
 ```
 
+```
+[1] 1.732051
+```
+
 versus:
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center'}
+
+```r
 a = log(3)
 a %>% exp() %>% sqrt()  
+```
+
+```
+[1] 1.732051
 ```
 
 
@@ -223,9 +209,17 @@ class: small-code
 
 We can pipe our table to `prop.table` to standardize along the columns (`margin=2`):
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center'}
+
+```r
 xtabs(~survived + passengerClass, data=TitanicSurvival) %>%
   prop.table(margin=2)
+```
+
+```
+        passengerClass
+survived       1st       2nd       3rd
+     no  0.3808050 0.5703971 0.7447109
+     yes 0.6191950 0.4296029 0.2552891
 ```
 
 Now you can compare survival proportions by passenger class.  
@@ -238,10 +232,18 @@ class: small-code
 
 Seven decimal places seems overkill -- let's round to third decimal place by piping the the result to round:
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center'}
+
+```r
 xtabs(~survived + passengerClass, data=TitanicSurvival) %>%
   prop.table(margin=2) %>%
   round(3)
+```
+
+```
+        passengerClass
+survived   1st   2nd   3rd
+     no  0.381 0.570 0.745
+     yes 0.619 0.430 0.255
 ```
 
 
@@ -251,7 +253,8 @@ class: small-code
 
 If you pipe the result to `kable`, you'll get a prettier table (formatted in Markdown):  
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center'}
+
+```r
 library(knitr)
 xtabs(~survived + passengerClass, data=TitanicSurvival) %>%
   prop.table(margin=2) %>%
@@ -261,21 +264,19 @@ xtabs(~survived + passengerClass, data=TitanicSurvival) %>%
 
 
 
+|    |   1st|  2nd|   3rd|
+|:---|-----:|----:|-----:|
+|no  | 0.381| 0.57| 0.745|
+|yes | 0.619| 0.43| 0.255|
+
+
+
 Bar plots
 ========
 
 We can also turn this information into a bar plot.  
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=FALSE}
-d1 = TitanicSurvival %>%
-  group_by(passengerClass) %>%
-  summarize(surv_pct = sum(survived=='yes')/n())
-
-# now make a barplot of survival percentage by sex
-ggplot(data = d1) + 
-  geom_bar(mapping = aes(x=passengerClass, y=surv_pct), stat='identity') + 
-  theme_bw(base_size=18)
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
 
 Remember to start your $y$-axis at 0!  
 
@@ -286,10 +287,20 @@ class: small-code
 
 Another good use of tables is to display _summary statistics_ of numerical variables.  For example, here's how we'd use pipes to compute the average age by passenger class:
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=TRUE}
+
+```r
 TitanicSurvival %>%
   group_by(passengerClass) %>%
   summarize(mean_age = mean(age,na.rm=TRUE))
+```
+
+```
+# A tibble: 3 x 2
+  passengerClass mean_age
+  <fct>             <dbl>
+1 1st                39.2
+2 2nd                29.5
+3 3rd                24.8
 ```
 
 Use `group_by` to group cases according to the `passengerClass` variable.  Then compute a summary statistic by averaging `age`.  (`na.rm = TRUE` tells R to ignore missing values.)
@@ -302,10 +313,24 @@ class: small-code
 
 Now with two variables defining the groups:
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=TRUE}
+
+```r
 TitanicSurvival %>%
   group_by(passengerClass, survived) %>%
   summarize(mean_age = mean(age,na.rm=TRUE))
+```
+
+```
+# A tibble: 6 x 3
+# Groups:   passengerClass [3]
+  passengerClass survived mean_age
+  <fct>          <fct>       <dbl>
+1 1st            no           43.2
+2 1st            yes          36.8
+3 2nd            no           33.2
+4 2nd            yes          24.9
+5 3rd            no           26.0
+6 3rd            yes          21.5
 ```
 
 This gives us a "flat" table.
@@ -316,11 +341,22 @@ class: small-code
 
 If you want to un-flatten the table, use `spread`:  
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=TRUE}
+
+```r
 TitanicSurvival %>%
   group_by(passengerClass, survived) %>%
   summarize(mean_age = mean(age,na.rm=TRUE)) %>%
   spread(survived, mean_age)
+```
+
+```
+# A tibble: 3 x 3
+# Groups:   passengerClass [3]
+  passengerClass    no   yes
+  <fct>          <dbl> <dbl>
+1 1st             43.2  36.8
+2 2nd             33.2  24.9
+3 3rd             26.0  21.5
 ```
 
 `spread` says to spread out the levels of the `survived` variables along the columns of the table and put the `mean_age` variable in each entry.  
@@ -332,12 +368,22 @@ class: small-code
 
 You can compute lots of summary statistics this way:  
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=TRUE}
+
+```r
 TitanicSurvival %>%
   group_by(passengerClass) %>%
   summarize(mean_age = mean(age,na.rm=TRUE),
             sd_age = sd(age,na.rm=TRUE), 
             max_age = max(age,na.rm=TRUE))
+```
+
+```
+# A tibble: 3 x 4
+  passengerClass mean_age sd_age max_age
+  <fct>             <dbl>  <dbl>   <dbl>
+1 1st                39.2   14.5      80
+2 2nd                29.5   13.6      70
+3 3rd                24.8   12.0      74
 ```
 
 
@@ -346,11 +392,7 @@ Histograms
 
 Now let's say we wanted to look at the _full_ distribution of ages on the Titanic (i.e. not just a summary like the average).  
 
-```{r, fig.width = 8, fig.height = 5, fig.align='center', echo=FALSE}
-ggplot(data=TitanicSurvival) + 
-  geom_histogram(aes(x=age), binwidth=5) + 
-  theme_bw(base_size=18) 
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" />
 
 Our workhorse for this kind of thing is a histogram.  
 
@@ -360,11 +402,7 @@ Histograms
 
 We can change the bin width on a histogram (here 1, versus 5):
 
-```{r, fig.width = 8, fig.height = 5, fig.align='center', echo=FALSE}
-ggplot(data=TitanicSurvival) + 
-  geom_histogram(aes(x=age), binwidth=1) + 
-  theme_bw(base_size=18) 
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" style="display: block; margin: auto;" />
 
 
 Histograms
@@ -372,11 +410,7 @@ Histograms
 
 We can also normalize the total area to sum to 1:  
 
-```{r, fig.width = 8, fig.height = 5, fig.align='center', echo=FALSE}
-ggplot(data=TitanicSurvival) + 
-  geom_histogram(aes(x=age, stat(density)), binwidth=1) + 
-  theme_bw(base_size=18) 
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" style="display: block; margin: auto;" />
 
 This is called a density histogram.  It's like an estimated probability density.  
 
@@ -391,12 +425,7 @@ With raw counts, each histogram has a different total area.
 
 ***
 
-```{r, fig.width = 6, fig.height = 7, fig.align='center', echo=FALSE}
-ggplot(data=TitanicSurvival) + 
-  geom_histogram(aes(x=age), binwidth=2) + 
-  facet_grid(passengerClass~.) +
-  theme_bw(base_size=18) 
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" style="display: block; margin: auto;" />
 
 
 Histograms
@@ -409,12 +438,7 @@ Notice that now, each panel has total area 1.
 
 ***
 
-```{r, fig.width = 6, fig.height = 7, fig.align='center', echo=FALSE}
-ggplot(data=TitanicSurvival) + 
-  geom_histogram(aes(x=age, stat(density)), binwidth=2) + 
-  facet_grid(passengerClass~.) +
-  theme_bw(base_size=18) 
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" style="display: block; margin: auto;" />
 
 
 Boxplots
@@ -424,11 +448,7 @@ Another way to compare data across categories is with a boxplot.
 - Each box shows the median and first/third quartiles.
 - By default, the whiskers extend 1.5 times the inter-quartile range.  Points outside these are shown individually.  
 
-```{r, fig.width = 8, fig.height = 4, fig.align='center', echo=FALSE}
-ggplot(data=TitanicSurvival) + 
-  geom_boxplot(aes(x=passengerClass, y=age)) + 
-  theme_bw(base_size=18) 
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-25-1.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" style="display: block; margin: auto;" />
 
 
 Boxplots
@@ -436,11 +456,7 @@ Boxplots
 
 Boxplots are preferred when there are lots of categories, because individual histograms can look cluttered.  
 
-```{r, fig.width = 9, fig.height = 5, fig.align='center', echo=FALSE}
-ggplot(data=TitanicSurvival) + 
-  geom_boxplot(aes(x=passengerClass:survived, y=age)) + 
-  theme_bw(base_size=18) 
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" style="display: block; margin: auto;" />
 
 
 
@@ -449,11 +465,7 @@ Violin plots
 
 A violin plot is a variant; it attempts to show a bit more of the shape of each distribution.  
 
-```{r, fig.width = 9, fig.height = 5, fig.align='center', echo=FALSE}
-ggplot(data=TitanicSurvival) + 
-  geom_violin(aes(x=passengerClass:survived, y=age)) + 
-  theme_bw(base_size=18) 
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" style="display: block; margin: auto;" />
 
 The width of the violin is kind of like the height of the histogram.  
 
@@ -463,15 +475,7 @@ Density plots
 
 Another variant is the density plot, which is like a smooth version of a histogram:
 
-```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=FALSE}
-ggplot(mpg, aes(x=cty)) + geom_density(aes(fill=factor(cyl)), alpha=0.6) +
-  labs(title="Density plot", 
-       subtitle="City Mileage vs Cylinders in Engine",
-       caption="Source: mpg data set in R",
-       x="City Gas Mileage",
-       fill="# Cylinders") + 
-  theme_bw(base_size=18)
-```
+<img src="02_intro_dataviz-figure/unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" style="display: block; margin: auto;" />
 
 
 Take-home skills

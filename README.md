@@ -15,7 +15,7 @@ The team:
 
 ### The data scientist's toolbox
 
-Slides: [The data scientist's toolbox](http://rpubs.com/jgscott/data_science_toolbox)  
+Slides: [The data scientist's toolbox](../slides/00_toolbox/00_datascience_toolbox.pdf)  
 Good data-curation and data-analysis practices; R; Markdown and RMarkdown; the importance of replicable analyses; version control with Git and Github.
 
 Readings:  
@@ -24,15 +24,6 @@ Readings:
 - [Introduction to GitHub](https://guides.github.com/activities/hello-world/)   
 - [Getting starting with GitHub Desktop](https://help.github.com/en/desktop/getting-started-with-github-desktop)  
 - [Jeff Leek's guide to sharing data](https://github.com/jtleek/datasharing)  
-
-Your assignment after the first class day:  
-- Create a GitHub account.  
-- Create your first GitHub repository.  
-- Inside that repository (on your local machine), create a toy RMarkdown file that does something---e.g. simulates some normal random variables and plots a histogram.  
-- Knit that RMarkdown file to a Markdown (.md) output.  
-- Push the changes to GitHub and view the final (knitted) .md file.  
-
-These instructions will make sense after you read the tutorials above!  
 
 
 ### Probability + R: a warm-up
@@ -45,8 +36,6 @@ R scripts and data sets:
 
 ### Data exploration and visualization
 
-Topics: data visualization and practice with R.  Bar plots; basic plots for numerical data (scatterplots, boxplots, histograms, line graphs); panel plots.  Introduction to ggplot2.  
-
 Examples of [bad graphics](ref/badgraphics.pdf).  And [an example from the New York Times](https://www.nytimes.com/interactive/2018/08/30/climate/how-much-hotter-is-your-hometown.html).  
 
 Slides: [Introduction to Data Exploration](http://rpubs.com/jgscott/data_exploration)  
@@ -56,6 +45,18 @@ R scripts and data:
 - [titanic.R](R/titanic.R) and [TitanicSurvival.csv](data/TitanicSurvival.csv)  
 - [toyimports_linegraph.R](R/toyimports_linegraph.R) and [toyimports.csv](data/toyimports.csv)  
 - [Green buildings case study](exercises/green_buildings.md)  
+
+
+### Fitting simple equations
+
+Slides: [Fitting equations](../slides/fitting_equations)  
+  
+R scripts and data:    
+- [afc_intro.R](./R/afc_intro.R) and [afc.csv](data/afc.csv)
+- [creatinine.csv](data/creatinine.csv)  
+- [utilities.R](./R/utilities.R)  
+- [race_splines.R](./R/race_splines.R)  
+- [ebola.R](./R/ebola.R)  
 
 
 ### Basic concepts in statistical learning
@@ -72,7 +73,7 @@ In class:
 - [spamtest.csv](data/spamtest.csv)   
 
 
-### Linear regression
+### Linear models
 
 [Slides here.](http://rpubs.com/jgscott/linear_regression)
 
@@ -97,7 +98,7 @@ In class:
 - [congress109members.csv](data/congress109members.csv)   
 
 
-### Resampling methods (CV, bootstrap)  
+### Resampling methods 
 
 [Slides here.](http://rpubs.com/jgscott/resampling)    
   

@@ -1,20 +1,23 @@
 # SDS 323: Statistical Learning and Inference
 
 Quick links:
-- [Course syllabus](./ref/SDS323_Spring2020_Syllabus.pdf)  
-- [Materials and software](materials.md)    
-- [Exercises](./exercises/)  
+- [Course syllabus](ref/SDS323_Spring2020_Syllabus.pdf)   
+- [Exercises](exercises/)  
 
 The team:  
 - [James Scott](https://jgscott.github.io/), instructor.  Office hours MW 1:30 to 2:45, GDC 7.516.  
+- Rimli Sengupta, teaching assistant.  Office hours TBA.  
 
 
-## Topics outline
+## Topics and materials
+
+I'll post materials for class below.  We'll go in order from this outline.  
 
 
 ### The data scientist's toolbox
 
 Slides: [The data scientist's toolbox](slides/00_toolbox/00_datascience_toolbox.pdf)    
+
 Good data-curation and data-analysis practices; R; Markdown and RMarkdown; the importance of replicable analyses; version control with Git and Github.
 
 Readings:  
@@ -26,7 +29,7 @@ Readings:
 
 ### Probability + R: a warm-up
 
-Slides: [Warm-up](slides/01_warmup/01_warmup.pdf): a bit of probability and a bit of R to get the semester going.
+Slides: [Warm-up](slides/01_warmup/01_warmup.pdf), covering a bit of probability and a bit of R to get the semester going.  
 
 R scripts and data sets:  
 - [predimed_intro.R](R/predimed_intro.R) and [predimed.csv](data/predimed.csv)   
@@ -45,9 +48,9 @@ R scripts and data:
 - [Green buildings case study](exercises/green_buildings.md)  
 
 
-### Fitting simple equations
+### Fitting equations to data
 
-<!-- Slides: [Fitting equations](../slides/fitting_equations)  
+<!-- Slides: [Fitting equations](slides/fitting_equations)  
   
 R scripts and data:    
 - [afc_intro.R](./R/afc_intro.R) and [afc.csv](data/afc.csv)
@@ -57,7 +60,7 @@ R scripts and data:
 - [ebola.R](./R/ebola.R)  --> 
 
 
-### Introduction to statistical learning
+### Principles of statistical learning
 
 <!-- [Slides here.](http://rpubs.com/jgscott/introlearning)
 
@@ -130,8 +133,8 @@ Scripts and data:
 - [cars.R](R/cars.R) and [cars.csv](data/cars.csv) 
 - [hclust_examples.R](R/hclust_examples.R)   
 - [linkage_minmax.R](R/linkage_minmax.R)   
-<!-- - [we8there.R](R/we8there.R)   -->  
- -->
+- [we8there.R](R/we8there.R)   -->  
+
 
 ### Principal components analysis (PCA)
 

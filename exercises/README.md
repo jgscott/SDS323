@@ -1,5 +1,3 @@
-
-
 # Exercises
 
 - [Exercises 1](exercises01.md): Due at 5 PM on Friday, February 14, 2020.  

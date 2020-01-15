@@ -1,3 +1,3 @@
 ~/node_modules/decktape/decktape.js source.html target.pdf -s '1280x960'
 
-~/node_modules/decktape/decktape.js 00_datascience_toolbox.html 00_datascience_toolbox.pdf -s '1280x960'
+~/node_modules/decktape/decktape.js 01_warmup.html 01_warmup.pdf -s '1280x960'

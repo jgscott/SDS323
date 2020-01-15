@@ -273,7 +273,7 @@ Your goal is to leverage this vast data resource to make automated, personalized
 
 You decide to start with an easy case: assessing how probable it is that a user will like the film _Saving Private Ryan_ (event $A$), given that the same user has liked the HBO series _Band of Brothers_  (event $B$).  
 
-This is almost certainly a good bet: both are epic war dramas about the Normandy invasion and its aftermath.  Therefore, you might think: job done!  Recommend away.
+This is almost certainly a good bet!
 
 
 Conditional probabilities from data
@@ -281,11 +281,10 @@ Conditional probabilities from data
 
 But keep in mind that you want to be able to do this kind of thing automatically.  
 
-Key insight: _frame the problem in terms of conditional probability._  Suppose we learn that Linda liked film $B$, but hasn't yet seen film $A$.  
-- What if $P(\mbox{likes A} \mid \mbox{likes B}) = 0.8$?  Then $A$ is a good recommendation!  Based on Linda liking $B$, we know there's an 80% chance she'll like A.  
-- But if $P(\mbox{likes A} \mid \mbox{likes B}) = 0.02$, she probability won't like A, given our knowledge of how she reacted to B.  
-
-_Conditional probabilities hold the key to understanding individualized preferences._  So how can we learn $P(\mbox{likes A} \mid \mbox{likes B})$?   
+Key insight: _frame the problem in terms of conditional probability._
+- Suppose we learn that you liked film $B$, but haven't yet seen film $A$.  
+- What is $P(\mbox{likes A} \mid \mbox{likes B})$?  _Conditional probabilities hold the key to understanding individualized preferences._
+- So how can we learn $P(\mbox{likes A} \mid \mbox{likes B})$?    
 
 
 Conditional probabilities from data
@@ -516,8 +515,8 @@ Example: drug surveys
 =========
 
 Drug surveys are really important:  
-- Drug abuse, whether it's cocaine in Detroit or bathtub speed in Nebraska, is a huge social problem. 
-- The problem fills our jails, drains public finances, and perpetuates a trans-generational cycle of poverty.  
+- Drug abuse is a huge social problem. 
+- It fills our jails, drains public finances, and perpetuates a trans-generational cycle of poverty.  
 - Getting good data on this problem is important! Doctors, schools, and governments all rely on self-reported measures of drug use to guide their thinking on this issue. 
 
 Delaney-Black's study asks: __can we trust any of it?__

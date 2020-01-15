@@ -1,6 +1,7 @@
-# ECO 395M: Exercises 1
+# SDS 323: Exercises 1
 
 Due date: links must be submitted by the beginning of class on Monday, February 11.
+
 
 ## Data visualization 1: green buildings
 
@@ -105,26 +106,21 @@ Your task is to create a figure, or set of related figures, that tell an interes
 But anything interesting will fly.  If you want to try your hand at mapping or looking at geography, you can cross-reference the airport codes here: [https://github.com/datasets/airport-codes](https://github.com/datasets/airport-codes).  Combine this with a mapping package like ggmap, and you should have lots of possibilities!
 
 
-### Regression vs KNN
+## Regression practice
 
-The data in [sclass.csv](../data/sclass.csv) contains data on over 29,000 Mercedes S Class vehicles---essentially every such car in this class that was advertised on the secondary automobile market during 2014.  For websites like Cars.com or Truecar that aim to provide market-based pricing information to consumers, the Mercedes S class is a notoriously difficult case.  There is a huge range of sub-models that are all labeled "S Class,"" from large luxury sedans to high-performance sports cars; one sub-category of S class even serves as the official pace car in Formula 1 Races.  Moreover, individual submodels involve cars with many different features.  This extreme diversity---unusual for a single model of car---makes it difficult to provide accurate pricing predictions to consumers.
+Download the data in `creatinine.csv` from the course website.  Each row is a patient in a doctor's office.  The variables are:  
+- age: patient's age in years.  
+- creatclear: patient's creatine clearance rate in mL/minute, a measure of kidney health (higher is better).  
 
-As with the green buildings data, we'll revisit this data set later in the semester when we've got a larger toolkit for building predictive models.  For now, let's focus on three variables in particular:
-- trim: categorical variable for car's trim level, e.g. 350, 63 AMG, etc.  The trim is like a sub-model designation.  
-- mileage: mileage on the car
-- price: the sales price in dollars of the car
+Use this data, together with your knowledge of linear regression, to answer three questions:    
+  1. What creatinine clearance rate should we expect, on average, for a 55-year-old?  
+  2. How does creatinine clearance rate change with age?   (This should be a number with units ml/minute per year.)  
+  3. Whose creatinine clearance rate is healthier (higher) for their age: a 40-year-old with a rate of 135, or a 60-year-old with a rate of 112?  
 
-Your goal is to use K-nearest neighbors to build a predictive model for price, given mileage, separately for each of two trim levels: 350 and 65 AMG.  (There are lots of other trim levels that you'll be ignoring for this question.) That is, you'll be treating the 350's and the 65 AMG's as two separate data sets.  See [sclass.R](../r/sclass.R) for some code that extracts these two subsets from the full data set.
-
-For each of these two trim levels:
-1) Split the data into a training and a testing set.  
-2) Run K-nearest-neighbors, for many different values of K, starting at K=2 and going as high as you need to. For each value of K, fit the model to the training set and make predictions on your test set.
-3) Calculate the out-of-sample root mean-squared error (RMSE) for each value of K.
-
-For each trim, make a plot of RMSE versus K, so that we can see where it bottoms out.  Then for the optimal value of K, show a plot of the fitted model.  (Again, separately for each of the two trim levels.)
-
-Which trim yields a larger optimal value of K?  Why do you think this is?
+Include a plot of clearance rate vs age, along with your fitted model used to reach these conclusions.  
 
 
+## Milk prices
 
+Complete the [case study on milk prices from class.](https://github.com/jgscott/learnR/blob/master/cases/milk/milk.md)    Write a short report summarizing your approach and conclusions.  Make sure your report includes an explicit equation that expresses the optimal price of milk as a function of the wholesale cost c and the price-elasticity of demand, beta.  
 

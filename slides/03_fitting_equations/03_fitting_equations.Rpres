@@ -1,4 +1,4 @@
-Fitting equations
+Fitting equations to data
 ===================
 author: SDS 323
 date: James Scott (UT-Austin) 
@@ -481,7 +481,7 @@ Polynomial models: splines
 Here's some data on finishing times from runners in the 10-mile Cherry Blossom Road Race in Washington, D.C., held every April:  
 
 ```{r, fig.width = 9, fig.height = 6, fig.align='center', echo=FALSE}
-library(mosaicData)
+library(mosaic,mosaicData)
 data(TenMileRace)
 sample_n(TenMileRace, 8)
 ```

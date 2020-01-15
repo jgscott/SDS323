@@ -1,4 +1,4 @@
-Fitting equations
+Fitting equations to data
 ===================
 author: SDS 323
 date: James Scott (UT-Austin) 
@@ -465,12 +465,175 @@ Polynomial models: splines
 Here's some data on finishing times from runners in the 10-mile Cherry Blossom Road Race in Washington, D.C., held every April:  
 
 
-
-
-
-
-
-
 ```
-Error in sample_n(TenMileRace, 8) : could not find function "sample_n"
+  state time  net age sex
+1    DC 6070 5669  35   M
+2    DC 5086 4898  31   F
+3    VA 6135 5895  23   F
+4    DC 4886 4673  42   F
+5    MD 6440 6225  39   M
+6    MD 6185 5748  41   M
+7    VA 5118 5018  35   M
+8    VA 6481 6034  45   M
 ```
+
+
+Polynomial models: splines
+========
+
+<img src="03_fitting_equations-figure/unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
+
+Three knots create four disjoint intervals (knots at the 25th, 50th, and 75th percentiles of temperature).  
+
+
+
+Polynomial models: splines
+========
+
+<img src="03_fitting_equations-figure/unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
+
+Separate polynomials on each interval, glued together in a smooth fashion.  __What might explain the non-monotone behavior?__  (Code in `race_splines.R`.)  
+
+
+
+Polynomial models: splines
+========
+
+There are probably at least two things going on here:  
+- actual non-monotonicity: runners reach their physical peak fairly late compared to other athletes (sometime in their 30s or 40s).  
+- survivorship bias: only the more serious runners are still running in their late 30s and through their 40s.  
+
+Bottom line: the flexible piece-wise polynomial (spline) model allowed us to __practice good data science__.  We could:  
+- see these subtle effects in the data.  
+- form theories about what might be causing them.  
+
+
+Exponential growth and decay  
+========
+
+An exponential growth or decay model looks like this:  
+
+$$
+y = \alpha e^{\beta_1 x}  
+$$
+
+where:
+- $\alpha$ is a baseline level of the response $y$ at $x=0$.  
+- $\beta_1$ describes the rate of growth ($+$) or decay ($-$) for a one-unit change in $x$.    
+
+
+Exponential growth and decay  
+========
+
+This formula comes from an analogy with continuously compounded interest.  Suppose you start with $\alpha$ dollars, invested at rate $\beta_1$ and compounded $n$ times annually.  Then after $t$ years, your investment is worth
+
+$$
+y = \alpha \left(1 + \frac{\beta_1}{n} \right)^{nt}  
+$$
+
+If we take the limit as $n$ gets large, we get
+
+$$
+y = \alpha e^{\beta_1 t}  
+$$
+
+
+Exponential growth and decay  
+========
+
+This is a non-linear model, but it's easy to fit using OLS!
+
+Here's the trick: if $y = \alpha e^{\beta_1 x}$, then
+
+$$
+\begin{aligned}
+\log(y) &= \log \left( \alpha e^{\beta_1 x} \right) \\
+ &= \log \alpha + \beta_1 x  
+\end{aligned}
+$$
+
+This is a linear function after all: not in $y$ versus $x$, but in $\log(y)$ versus $x$.  
+
+
+
+Exponential growth and decay  
+========
+
+This gives us a simple recipe: Fit a linear regression model where the $y$ variable has been log-transformed:  
+
+$$
+\log(y_i) = \beta_0 + \beta_1 x_i + e_i
+$$
+
+This tells us the parameters of our exponential growth or decay model:  
+- $\beta_0 = \log \alpha$, so $\alpha = e^{\beta_0}$ is the initial level of $y$ at $x=0$.  
+- $\beta_1$ is the growth rate per unit change in $x$.  
+
+__See example in `ebola.R`.__  
+
+
+
+Power laws
+========
+
+A similar trick works for power laws, where
+
+$$
+y = \alpha x^{\beta}  
+$$
+
+This is a very common model in microeconomics, where we often use power laws to model change in consumer demand as a function of price:  
+
+$$
+Q = K P^E
+$$
+
+where $Q$ is quantity demanded, $P$ is price, $E$ is [price elasticity of demand](https://en.wikipedia.org/wiki/Price_elasticity_of_demand#Optimal_pricing) (PED), and $K$ is a constant.  
+
+
+
+Exponential growth and decay  
+========
+
+We can git a model like this using OLS as well.  
+
+Here's the trick: if $y = \alpha x^{\beta_1}$, then
+
+$$
+\begin{aligned}
+\log(y) &= \log \left( \alpha x^{\beta_1} \right) \\
+ &= \log \alpha + \beta_1 \log(x)  
+\end{aligned}
+$$
+
+This is also linear function, in $\log(y)$ versus $\log(x)$.  
+
+
+
+Exponential growth and decay  
+========
+
+Now we fit a linear regression model with _both_ variables log-transformed:  
+
+$$
+\log(y_i) = \beta_0 + \beta_1 \log(x_i) + e_i
+$$
+
+This tells us the parameters of our exponential growth or decay model:  
+- $\beta_0 = \log \alpha$, so $\alpha = e^{\beta_0}$ is our leading constant.  
+- $\beta_1$ is the elasticity: if $x$ changes by 1%, then y changes by $\beta_1$%.    
+
+[See example on class website.](https://github.com/jgscott/learnR/blob/master/infmort/infmort.md)  
+
+
+
+Power laws
+========
+type: prompt
+
+Your turn!   In `milk.csv`, you're given a data set on consumer demand for milk, along with price.  Your ultimate goal is to answer the question: how much should the store charge for a carton of milk?  
+
+Let's dive in to the [case study on milk prices on the class website.](https://github.com/jgscott/learnR/blob/master/cases/milk/milk.md)
+ 
+ Remember: demand versus price often follows a power law!  
+ 

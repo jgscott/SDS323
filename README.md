@@ -14,7 +14,7 @@ The team:
 
 ### The data scientist's toolbox
 
-Slides: [The data scientist's toolbox](../slides/00_toolbox/00_datascience_toolbox.pdf)  
+Slides: [The data scientist's toolbox](slides/00_toolbox/00_datascience_toolbox.pdf)    
 Good data-curation and data-analysis practices; R; Markdown and RMarkdown; the importance of replicable analyses; version control with Git and Github.
 
 Readings:  
@@ -26,7 +26,7 @@ Readings:
 
 ### Probability + R: a warm-up
 
-Slides: [Warm-up](../slides/01_warmup/01_warmup.pdf): a bit of probability and a bit of R to get the semester going.
+Slides: [Warm-up](slides/01_warmup/01_warmup.pdf): a bit of probability and a bit of R to get the semester going.
 
 R scripts and data sets:  
 - [predimed_intro.R](R/predimed_intro.R) and [predimed.csv](data/predimed.csv)   
@@ -36,7 +36,7 @@ R scripts and data sets:
 
 Examples of [bad graphics](ref/badgraphics.pdf).  And [an example from the New York Times](https://www.nytimes.com/interactive/2018/08/30/climate/how-much-hotter-is-your-hometown.html).  
 
-Slides: [Introduction to Data Exploration and Visualization](../slides/02_intro_dataviz/02_intro_dataviz.pdf)    
+Slides: [Introduction to Data Exploration and Visualization](slides/02_intro_dataviz/02_intro_dataviz.pdf)    
 
 R scripts and data:  
 - [mpg.R](R/mpg.R)  

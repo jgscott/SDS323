@@ -11,9 +11,21 @@ Quick links:
 - [Exercises](exercises/)  
 
 
-## Topics and materials
+## Software
 
-I'll post materials for class below.  We'll go in order from this outline.  
+- Statistical computing: [R](http://www.r-project.org), which we will use via [RStudio](http://www.rstudio.com), a free, platform-independent graphical front-end for R.  Make sure you have both installed, along with the [RMarkdown package](http://rmarkdown.rstudio.com).   
+- Other software: please [install Git and create a GitHub account](https://help.github.com/articles/set-up-git/), if you don't already have one.  You will use GitHub for version control and to submit your assignments.  
+
+## Readings
+
+Readings will be drawn from two free online resources:  
+- [_Introduction to Statistical Learning_](http://www-bcf.usc.edu/~gareth/ISL/), by James, Witten, Hastie, and Tibshirani (free online).   I'll refer to it as "ISL" in the course outline.
+- [_Data Science: A Gentle Introduction_](ref/DataScience.pdf), some of my own course notes covering various topics in data analysis and regression.   
+ 
+
+## Topics
+
+I'll post topics for class below.  We'll go in order from this outline.  
 
 
 ### The data scientist's toolbox

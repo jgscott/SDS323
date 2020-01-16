@@ -1,9 +1,69 @@
 # SDS 323: Exercises 1
 
-Due date: links must be submitted by the beginning of class on Monday, February 11.
 
 
-## Data visualization 1: green buildings
+## Data visualization: flights at ABIA
+
+Consider the data in [ABIA.csv](../data/ABIA.csv), which contains information on every commercial flight in 2008 that either departed from or landed at Austin-Bergstrom Interational Airport.  The variable codebook is as follows: 
+
+- Year    all 2008  
+- Month   1-12  
+- DayofMonth  1-31
+- DayOfWeek   1 (Monday) - 7 (Sunday)
+- DepTime actual departure time (local, hhmm)
+- CRSDepTime  scheduled departure time (local, hhmm)
+- ArrTime actual arrival time (local, hhmm)
+- CRSArrTime  scheduled arrival time (local, hhmm)
+- UniqueCarrier   unique carrier code
+- FlightNum   flight number
+- TailNum plane tail number
+- ActualElapsedTime   in minutes
+- CRSElapsedTime  in minutes
+- AirTime in minutes
+- ArrDelay    arrival delay, in minutes
+- DepDelay    departure delay, in minutes
+- Origin  origin IATA airport code
+- Dest    destination IATA airport code
+- Distance    in miles
+- TaxiIn  taxi in time, in minutes
+- TaxiOut taxi out time in minutes
+- Cancelled   was the flight cancelled?
+- CancellationCode    reason for cancellation (A = carrier, B = weather, C = NAS, D = security)
+- Diverted    1 = yes, 0 = no
+- CarrierDelay    in minutes
+- WeatherDelay    in minutes
+- NASDelay    in minutes 
+- SecurityDelay   in minutes  
+- LateAircraftDelay   in minutes  
+
+Your task is to create a figure, or set of related figures, that tell an interesting story about flights into and out of Austin.  You can annotate the figure with a detailed caption, of course, but strive to make it as stand-alone as possible.  It shouldn't need many, many paragraphs to convey its meaning.  Rather, the figure should speak for itself as far as possible.  For example, you might consider one of the following questions: 
+
+- What is the best time of day to fly to minimize delays?  
+- What is the best time of year to fly to minimize delays?  
+- How do patterns of flights to different destinations or parts of the country change over the course of the year?  
+- What are the bad airports to fly to?  
+
+But anything interesting will fly.  If you want to try your hand at mapping or looking at geography, you can cross-reference the airport codes here: [https://github.com/datasets/airport-codes](https://github.com/datasets/airport-codes).  Combine this with a mapping package like ggmap or similar, and you should have lots of possibilities!
+
+
+## Regression practice
+
+Download the data in `creatinine.csv` from the course website.  Each row is a patient in a doctor's office.  The variables are:  
+- age: patient's age in years.  
+- creatclear: patient's creatine clearance rate in mL/minute, a measure of kidney health (higher is better).  
+
+Use this data, together with your knowledge of linear regression, to answer three questions:    
+  1. What creatinine clearance rate should we expect, on average, for a 55-year-old?  
+  2. How does creatinine clearance rate change with age?   (This should be a number with units ml/minute per year.)  
+  3. Whose creatinine clearance rate is healthier (higher) for their age: a 40-year-old with a rate of 135, or a 60-year-old with a rate of 112?  
+
+Include a plot of clearance rate vs age, along with your fitted model used to reach these conclusions.  
+
+Note: don't overthink this one; it's just practice.  
+
+
+
+## Green buildings
 
 ### The background  
 
@@ -59,65 +119,7 @@ The developer listened to this recommendation, understood the analysis, and stil
 
 Do you agree with the conclusions of her on-staff "data guru"?  If so, point to evidence supporting his case.  If not, explain where and why you think the analysis goes wrong, and how it can be improved.  For example, do you see the possibility of confounding variables, so that the analyst isn't comparing apples to apples when looking at green versus non-green buildings?
 
-To make your case, produce a visualization or set of visualizations that either support or complicate the analyst's story.  If you can make a picture that produces a better apples-to-apples comparison, do it.  Either way, _make your case in pictures._  Building a fancy regression model is not the goal here.  (We'll revisit this data set later and build predictive models.)
-
-
-## Data visualization 2: flights at ABIA
-
-Consider the data in [ABIA.csv](../data/ABIA.csv), which contains information on every commercial flight in 2008 that either departed from or landed at Austin-Bergstrom Interational Airport.  The variable codebook is as follows: 
-
-- Year    all 2008  
-- Month   1-12  
-- DayofMonth  1-31
-- DayOfWeek   1 (Monday) - 7 (Sunday)
-- DepTime actual departure time (local, hhmm)
-- CRSDepTime  scheduled departure time (local, hhmm)
-- ArrTime actual arrival time (local, hhmm)
-- CRSArrTime  scheduled arrival time (local, hhmm)
-- UniqueCarrier   unique carrier code
-- FlightNum   flight number
-- TailNum plane tail number
-- ActualElapsedTime   in minutes
-- CRSElapsedTime  in minutes
-- AirTime in minutes
-- ArrDelay    arrival delay, in minutes
-- DepDelay    departure delay, in minutes
-- Origin  origin IATA airport code
-- Dest    destination IATA airport code
-- Distance    in miles
-- TaxiIn  taxi in time, in minutes
-- TaxiOut taxi out time in minutes
-- Cancelled   was the flight cancelled?
-- CancellationCode    reason for cancellation (A = carrier, B = weather, C = NAS, D = security)
-- Diverted    1 = yes, 0 = no
-- CarrierDelay    in minutes
-- WeatherDelay    in minutes
-- NASDelay    in minutes 
-- SecurityDelay   in minutes  
-- LateAircraftDelay   in minutes  
-
-Your task is to create a figure, or set of related figures, that tell an interesting story about flights into and out of Austin.  You can annotate the figure with a detailed caption, of course, but strive to make it as stand-alone as possible.  It shouldn't need many, many paragraphs to convey its meaning.  Rather, the figure should speak for itself as far as possible.  For example, you might consider one of the following questions: 
-
-- What is the best time of day to fly to minimize delays?  
-- What is the best time of year to fly to minimize delays?  
-- How do patterns of flights to different destinations or parts of the country change over the course of the year?  
-- What are the bad airports to fly to?  
-
-But anything interesting will fly.  If you want to try your hand at mapping or looking at geography, you can cross-reference the airport codes here: [https://github.com/datasets/airport-codes](https://github.com/datasets/airport-codes).  Combine this with a mapping package like ggmap, and you should have lots of possibilities!
-
-
-## Regression practice
-
-Download the data in `creatinine.csv` from the course website.  Each row is a patient in a doctor's office.  The variables are:  
-- age: patient's age in years.  
-- creatclear: patient's creatine clearance rate in mL/minute, a measure of kidney health (higher is better).  
-
-Use this data, together with your knowledge of linear regression, to answer three questions:    
-  1. What creatinine clearance rate should we expect, on average, for a 55-year-old?  
-  2. How does creatinine clearance rate change with age?   (This should be a number with units ml/minute per year.)  
-  3. Whose creatinine clearance rate is healthier (higher) for their age: a 40-year-old with a rate of 135, or a 60-year-old with a rate of 112?  
-
-Include a plot of clearance rate vs age, along with your fitted model used to reach these conclusions.  
+To make your case, produce a visualization or set of visualizations that either support or complicate the analyst's story.  If you can make a picture that produces a better apples-to-apples comparison, do it.  Either way, _make your case using pictures.  It is OK for a statistical model (i.e. regression or something similar) to play an appropriate supporting role if you judge it helpful, but a regression model alone here will not be convincing.  _You need good pictures.__
 
 
 ## Milk prices

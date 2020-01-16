@@ -19,7 +19,7 @@ Quick links:
 ## Readings
 
 Readings will be drawn from two free online resources:  
-- [_Introduction to Statistical Learning_](http://www-bcf.usc.edu/~gareth/ISL/), by James, Witten, Hastie, and Tibshirani (free online).   I'll refer to it as "ISL" in the course outline.
+- [_Introduction to Statistical Learning_](http://faculty.marshall.usc.edu/gareth-james/ISL/), by James, Witten, Hastie, and Tibshirani (free online).   I'll refer to it as "ISL" in the course outline.
 - [_Data Science: A Gentle Introduction_](ref/DataScience.pdf), some of my own course notes covering various topics in data analysis and regression.   
  
 

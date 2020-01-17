@@ -77,16 +77,18 @@ R scripts and data:
 
 ### Principles of statistical learning
 
-<!-- [Slides here.](http://rpubs.com/jgscott/introlearning)
+[Slides here.](slides/04_intro_learning/04-introlearning.pdf)  
 
 Reading: Chapters 1-2 of "Introduction to Statistical Learning."
 
 In class:  
 - [loadhou.R](r/loadhou.R)  
 - [loadhou.csv](data/loadhou.csv)  
-- [spamtoy.R](r/spamtoy.r)  
+
+<!-- - [spamtoy.R](r/spamtoy.r)  
 - [spamfit.csv](data/spamfit.csv)   
-- [spamtest.csv](data/spamtest.csv)    -->
+- [spamtest.csv](data/spamtest.csv)   
+ -->
 
 
 ### Linear models

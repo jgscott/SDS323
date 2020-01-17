@@ -82,8 +82,7 @@ R scripts and data:
 Reading: Chapters 1-2 of "Introduction to Statistical Learning."
 
 In class:  
-- [loadhou.R](r/loadhou.R)  
-- [loadhou.csv](data/loadhou.csv)  
+- [loadhou.R](R/loadhou.R) and [loadhou.csv](data/loadhou.csv)   
 
 <!-- - [spamtoy.R](r/spamtoy.r)  
 - [spamfit.csv](data/spamfit.csv)   
@@ -93,13 +92,13 @@ In class:
 
 ### Linear models
 
-<!-- [Slides here.](http://rpubs.com/jgscott/linear_regression)
+[Slides here.](slides/05_linear_models/05_linear_models.pdf)  
 
 Reading: Chapter 3 of "Introduction to Statistical Learning."
 
 In class:  
 - [oj.R](r/oj.R) and [oj.csv](data/oj.csv)   
-- [saratoga_lm.R](r/saratoga_lm.R)   -->
+- [saratoga_lm.R](r/saratoga_lm.R)  
 
 
 ### Classification

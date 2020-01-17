@@ -77,7 +77,7 @@ R scripts and data:
 
 ### Principles of statistical learning
 
-[Slides here.](slides/04_intro_learning/04-introlearning.pdf)  
+[Slides here.](slides/04_intro_learning/04_intro_learning.pdf)  
 
 Reading: Chapters 1-2 of "Introduction to Statistical Learning."
 

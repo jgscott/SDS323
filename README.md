@@ -1,10 +1,12 @@
 # SDS 323: Statistical Learning and Inference  
 
+There will be a pop quiz tomorrow.
+
 Meets MW 3:00 - 4:30 in Parlin 301.  
 
 The team:  
-- [James Scott](https://jgscott.github.io/), instructor.  Office hours MW 1:30 to 2:45, GDC 7.516.  
-- Rimli Sengupta, teaching assistant.  Office hours T TH 11am - 1pm, location TBA.  
+- [James Scott](https://jgscott.github.io/), instructor.  Drop-in office hours MW 1:30 to 2:45, GDC 7.516.  
+- Rimli Sengupta, teaching assistant.  Drop-in office hours T TH 11am - 1pm, GDC 2.410.  
 
 Quick links:
 - [Course syllabus](ref/SDS323_Spring2020_Syllabus.pdf)   

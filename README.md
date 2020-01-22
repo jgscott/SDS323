@@ -1,7 +1,5 @@
 # SDS 323: Statistical Learning and Inference  
 
-There will be a pop quiz tomorrow.
-
 Meets MW 3:00 - 4:30 in Parlin 301.  
 
 The team:  

@@ -28,6 +28,10 @@ d1
 ggplot(data = d1) + 
   geom_bar(mapping = aes(x=sex, y=surv_pct), stat='identity')
 
+# Same as geom_col
+ggplot(data = d1) + 
+  geom_col(mapping = aes(x=sex, y=surv_pct))
+
 
 ###
 # tables of summary statistics

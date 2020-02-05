@@ -60,4 +60,10 @@ xtabs(~sex + group + event, data=predimed) %>% ftable
 # or a "small sample" difference!  
 
 # checking independence
+xtabs(~group + event + sex, data=predimed)
 xtabs(~sex + event + htn, data=predimed)
+
+
+xtabs(~sex + event, data=predimed)
+101/(101+3544)
+151/(151+2528)

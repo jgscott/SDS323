@@ -153,7 +153,13 @@ g + geom_density(aes(fill=factor(cyl)), alpha=0.6) +
 
 data(mpg)
 
+# Just counting cases of each class
+# note: height of the bar is calculated automatically by stat='count'
+ggplot(mpg, aes(x=class)) + 
+  geom_bar(stat='count')
+
 # How about a bar chart of gas mileage for each model?
+# now supply a y variable directly and use stat = 'identity' 
 ggplot(mpg, aes(x=model, y=hwy)) + 
   geom_bar(stat='identity')
 
@@ -181,6 +187,10 @@ ggplot(mpg_summ, aes(x=reorder(model, hwy.mean), y=hwy.mean)) +
   geom_bar(stat='identity') + 
   coord_flip()
 
+# Note: geom_bar with stat=identity is the same as geom_col
+ggplot(mpg_summ, aes(x=reorder(model, hwy.mean), y=hwy.mean)) + 
+  geom_col() + 
+  coord_flip()
 
 # what about plotting z scores instead?
 

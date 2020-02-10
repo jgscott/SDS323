@@ -16,6 +16,8 @@ Quick links:
 - Statistical computing: [R](http://www.r-project.org), which we will use via [RStudio](http://www.rstudio.com), a free, platform-independent graphical front-end for R.  Make sure you have both installed, along with the [RMarkdown package](http://rmarkdown.rstudio.com).   
 - Other software: please [install Git and create a GitHub account](https://help.github.com/articles/set-up-git/), if you don't already have one.  You will use GitHub for version control and to submit your assignments.  
 
+A great reference on R is Hadley Wickham's online reference, [R for Data Science](https://r4ds.had.co.nz/)  The whole set of materials is great, but chapters 3 through 7 are especially useful for our purposes in this class.  
+
 ## Readings
 
 Readings will be drawn from two free online resources:  

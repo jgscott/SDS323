@@ -8,7 +8,7 @@ plot(totalSus ~ Day, data=ebola)
 plot(log(totalSus) ~ Day, data=ebola)
 
 # linear model for log(cases) versus time
-lm1 = lm(log(totalSus) ~ Day, data=ebola)
+lm1 = lm(log(totalSus) ~ Day, data=ebola) 
 
 plot(log(totalSus) ~ Day, data=ebola)
 abline(lm1, col='red')

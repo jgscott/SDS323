@@ -627,7 +627,7 @@ where $Q$ is quantity demanded, $P$ is price, $E$ is [price elasticity of demand
 
 
 
-Exponential growth and decay  
+Power laws
 ========
 
 We can git a model like this using OLS as well.  
@@ -645,7 +645,7 @@ This is also linear function, in $\log(y)$ versus $\log(x)$.
 
 
 
-Exponential growth and decay  
+Power laws
 ========
 
 Now we fit a linear regression model with _both_ variables log-transformed:  
@@ -654,7 +654,7 @@ $$
 \log(y_i) = \beta_0 + \beta_1 \log(x_i) + e_i
 $$
 
-This tells us the parameters of our exponential growth or decay model:  
+This tells us the parameters of our power law model:  
 - $\beta_0 = \log \alpha$, so $\alpha = e^{\beta_0}$ is our leading constant.  
 - $\beta_1$ is the elasticity: if $x$ changes by 1%, then y changes by $\beta_1$%.    
 

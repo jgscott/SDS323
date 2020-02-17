@@ -1,3 +1,5 @@
 ~/node_modules/decktape/decktape.js source.html target.pdf -s '1280x960'
 
 ~/node_modules/decktape/decktape.js 03_linear_models.html 03_linear_models.pdf -s '1280x960'
+
+~/node_modules/decktape/decktape.js 04-classification.html 04-classification.pdf -s '1280x960'

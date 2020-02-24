@@ -1,7 +1,7 @@
-Standard errors and the bootstrap
+The bootstrap  
 ========================================================
-author: 
-date: 
+author: SDS 323
+date: James Scott  
 autosize: true
 font-family: 'Gill Sans'
 transition: none  
@@ -19,22 +19,22 @@ set.seed(12346)
 opts_chunk$set(cache=TRUE)
 ```
 
-Reference: _Data Science_ Chapter 5
+Reference: _Data Science: A Gentle Introduction_ Chapter 5; _Statistical Learning_ Ch 5.2  
 
 
 Outline
 ========
 
-- Uncertainty quantification as a "what if?"  
 - Sampling distributions  
 - Bias and standard error  
 - The bootstrap  
+- Bootstrapped confidence intervals  
 
 ***
 
-- Bootstrapped confidence intervals  
 - Bootstrapped versus plug-in standard errors  
-- Bonus topic: the parametric bootstrap  
+- Application: the bootstrap in supervised learning   
+- Application: bootstrapping for risk estimation  
 
 
 
@@ -84,7 +84,7 @@ Quantifying uncertainty
 Conclusion: 
 - Chemotherapy patients are __13% $\pm$ ?__ more likely to survive past 5 years, with __??%__ confidence.  
 
-By "quantifying uncertainty," we mean filling in the blanks.  
+By "quantifying uncertainty" or "statistical inference," we mean filling in the blanks.  
 
 
 
@@ -107,7 +107,7 @@ $$
 \end{array}
 $$
 
-
+To assess stability, you have to contemplate the possibility of __alternate data universes.__  
 
 Quantifying uncertainty
 ========
@@ -661,16 +661,6 @@ Suppose we have an estimator $\hat{\theta}_N$ and we want to know its standard e
 Let's see an example in `predimed_plugin.R`.  
 
 
-Plug-in standard errors
-========
-type: prompt  
-
-Your turn!  For the same `predimed` data set:  
-- Let $p_1$ be the true population proportion of people we expect to experience a cardiac event in the control group, and let $p_2$ be the same proportion in "Mediterranean diet + VOO" group.  
-- Suppose we're interested in $p_1 - p_2$, the difference in (unknown) true proportions.  We estimate this using $\hat{p}_1 - \hat{p}_2$, the difference in _sample_ proportions from our data.  
-- Use the plug-in procedure to derive an estimated standard error, $\hat{se}(\hat{p}_1 - \hat{p}_2)$, and calculate this for the `predimed` data.  
-- Compare this to a bootstrapped standard error.   
-
 
 Summary
 ========
@@ -686,8 +676,7 @@ Summary
 - The _standard error_ is the standard deviation of the sampling distribution.  
 - Roughly speaking, it answers the question: how far off do I expect my estimate to be from the truth?  
 - A practical way of estimating the standard error is by _bootstrapping_: repeatedly re-sampling with replacement from the original sample, and re-calculating the estimate each time.  
-- In simple cases we can also calculate a _plug-in_ estimate of the standard error, using probability theory together with sample estimates of unknown parameters.  __You will do this all the time in Econometrics!__
-
+- In simple cases we can also calculate a _plug-in_ estimate of the standard error, using probability theory together with sample estimates of unknown parameters. 
 
 Summary
 ========
@@ -698,12 +687,400 @@ Summary
 
 
 
-Bonus: parametric bootstrap 
+The bootstrap in supervised learning
+=============  
+
+__Let's turn back to supervised learning!__ 
+
+So we believe that $y_i = f(x_i) + \epsilon_i$, we've collected some data, and we have our estimate $\hat{f}(x)$... How can we quantify our uncertainty for this estimate?  
+
+Fundamental frequentist thought experiment: "How might $\hat{f}(x)$ have been different in an alternate data universe?"    
+
+The bootstrap in supervised learning
+=============  
+
+But what does "alternate data universe" actually mean?  
+- a different sample (of size $N$) of $(x_i, y_i)$ pairs from the same population?  
+- a different set of residuals?  
+- a different realization of the same underlying random process/phenomenon?  
+
+The bootstrap
+=============  
+
+There's a version the bootstrap for all three situations:  
+- a different sample (of size $N$) of $(x_i, y_i)$ pairs from the same population?    __The nonparametric bootstrap__: pretty much example what we've already seen.  
+- a different set of residuals?  __The residual-resampling bootstrap__  
+- a different realization of the same underlying random process/phenomenon?  __The parametric bootstrap__  
+
+Let's see all three versions of the bootstrap one by one.  
+
+
+The nonparametric bootstrap
+=============  
+
+If you've seen the bootstrap before, it was probably this one!  
+
+- Question: "how might my estimate $\hat{f}(x)$ have been different if I'd seen a different sample of $(x_i, y_i)$ pairs from the same population?"  
+- Assumption: each $(x_i, y_i)$ is a random sample from a joint distribution $P(x, y)$ describing the population from which your sample was drawn.  
+- Problem: We don't know $P(x, y)$.  
+- Solution: Approximate $P(x, y)$ by $\hat{P}(x, y)$, the empirical joint distribution of the data in your sample.  
+- Key fact for implementation: sampling from $\hat{P}(x, y)$ is equivalent to sampling with replacement from the original sample.  
+
+
+The nonparametric bootstrap
+=============  
+
+This leads to the following algorithm.  
+
+For b = 1 to B:
+- Construct a sample from $\hat{P}(x, y)$ (called a _bootstrapped sample_) by sampling $N$ pairs $(x_i, y_i)$ _with replacement_ from the original sample.  
+- Refit the model to each bootstrapped sample, giving you $\hat{f}^{(b)}$.  
+
+This gives us $B$ draws from the bootstrapped sampling distribution of $\hat{f}(x)$.  
+
+Use these draws to form (approximate) confidence intervals and standard errors for $f(x)$.  
+
+An example
+=============  
+class: small-code
+
+```{r, message=FALSE, fig.width = 11, fig.height = 5, fig.align='center'}
+library(tidyverse)
+loadhou = read.csv('../data/loadhou.csv')
+
+ggplot(loadhou) + geom_point(aes(x=KHOU, y=COAST), alpha=0.1) + 
+  theme_set(theme_bw(base_size=18)) 
+```
+
+
+An example
+=============  
+class: small-code
+
+Suppose we want to know $f(5)$ and $f(25)$, i.e. the expected values of `COAST` when `KHOU = 5` and `KHOU = 25`, respectively.  Let's bootstrap a KNN model, with $K=40$:  
+
+```{r, message=FALSE, fig.width = 11, fig.height = 5, fig.align='center'}
+library(mosaic)
+library(FNN)
+
+X_test = data.frame(KHOU=c(5,25))
+boot20 = do(500)*{
+  loadhou_boot = resample(loadhou)  # construct a boostrap sample
+  X_boot = select(loadhou_boot, KHOU)
+  y_boot = select(loadhou_boot, COAST)
+  knn20_boot = knn.reg(X_boot, X_test, y_boot, k=40)
+  knn20_boot$pred
+}
+head(boot20, 3)  # first column is f(5), second is f(25)  
+```
+
+An example
+=============  
+class: small-code
+ 
+Now we can calculate standard errors and/or confidence intervals.  
+
+- Standard errors: take the standard deviation of each column.  
+```{r}
+se_hat = apply(boot20, 2, sd)
+se_hat
+```
+
+- Confidence intervals: calculate quantiles for each column
+```{r}
+apply(boot20, 2, quantile, probs=c(0.025, 0.975))  
+```
+
+An example
+=============  
+class: small-code
+
+- Shortcut: 
+```{r}
+confint(boot20)
+```
+
+Spaghetti plot: using base R graphics  
+=============  
+class: small-code  
+
+```{r, message=FALSE, fig.width = 11, fig.height = 5, fig.align='center'}
+X_test = data.frame(KHOU=seq(0, 35, by=0.1))
+plot(COAST ~ KHOU, data=loadhou)
+for(i in 1:500) {
+  loadhou_boot = resample(loadhou)  # construct a boostrap sample
+  X_boot = select(loadhou_boot, KHOU)
+  y_boot = select(loadhou_boot, COAST)
+  knn20_boot = knn.reg(X_boot, X_test, y_boot, k=40)
+  knn20_boot$pred
+  lines(X_test$KHOU,  knn20_boot$pred, col=rgb(1, 0, 0, 0.1))
+}
+```
+
+
+The residual-resampling bootstrap
+=============  
+
+- Question: "how might my estimate $\hat{f}(x)$ have been different if the error terms/residuals had been different?"  
+- Assumption: each residual $e_i$ is a random sample from a probability distribution $P(e)$ describing the noise in your data set.      
+- Problem: We don't know $P(e)$.  
+- Solution: Approximate $P(e)$ by $\hat{P}(e)$, the empirical distribution of the residuals from your fitted model.     
+- Key fact for implementation: sampling from $\hat{P}(e)$ is equivalent to sampling with replacement from residuals of your fitted model.  
+
+
+The residual-resampling bootstrap  
+=============  
+
+This leads to the following algorithm.  First fit the model, yielding
+$$
+y_i = \hat{f}(x_i) + e_i
+$$
+
+Then, for b = 1 to B:
+- Construct a sample from $\hat{P}(e)$ by sampling $N$ residuals $e^{(b)}_i$ _with replacement_ from the original residuals $e_1, \ldots, e_N$.  
+- Construct synthetic outcomes $y_i^{(b)}$ by setting 
+$$
+y_i^{(b)} = \hat{f}(x_i) + e^{(b)}_i
+$$
+- Refit the model to the $(x_i, y_i^{(b)})$ pairs, yielding $\hat{f}^{(b)}$.  
+
+
+An example
+=============  
+class: small-code
+
+```{r, message=FALSE, fig.width = 11, fig.height = 5, fig.align='center'}
+ethanol = read.csv('ethanol.csv')
+ggplot(ethanol) + geom_point(aes(x=E, y=NOx)) + 
+  theme_set(theme_bw(base_size=18)) 
+```
+
+Key fact: the $(x_i, y_i)$ are not random samples here! _The $x_i$ points are fixed as part of the experimental design._  
+
+
+An example
+=============  
+class: small-code
+
+Let's quantify uncertainty for $f(0.7)$ and $f(0.95)$, under 5th-order polynomial model, via the residual resampling bootstrap.  
+
+First, let's look at the empirical distribution of the residuals:  
+```{r, message=FALSE, fig.width = 11, fig.height = 6, fig.align='center'}
+poly5 = lm(NOx ~ poly(E, 5), data=ethanol)
+yhat = fitted(poly5)
+evector = ethanol$NOx - yhat  # empirical distribution of residuals
+```
+
+An example
+=============  
+class: small-code
+
+```{r, message=FALSE, fig.width = 11, fig.height = 6, fig.align='center'}
+hist(evector, 20)
+```
+
+This is our estimate $\hat{P}(e)$ for the probability distribution of the residuals.  
+
+
+
+An example
+=============  
+class: small-code
+
+Now we bootstrap:  
+```{r, message=FALSE, fig.width = 11, fig.height = 6, fig.align='center'}
+X_test = data.frame(E=c(0.7, 0.95))
+boot5 = do(500)*{
+  e_boot = resample(evector)
+  y_boot = yhat + e_boot  # construct synthetic outcomes
+  ethanol_boot = ethanol
+  ethanol_boot$NOx = y_boot  # substitute real outcomes with synthetic ones
+  poly5_boot = lm(NOx ~ poly(E, 5), data=ethanol_boot)
+  fhat_boot = predict(poly5_boot, X_test)
+  fhat_boot
+}
+head(boot5, 3)  # first column is f(0.7), second is f(0.95)  
+```
+
+
+An example
+=============  
+class: small-code
+
+As before, we can get standard errors and/or confidence intervals.  
+
+- Standard errors:  
+```{r}
+se_hat = apply(boot5, 2, sd)
+se_hat
+```
+
+- Confidence intervals: calculate quantiles for each column  
+```{r}
+apply(boot5, 2, quantile, probs=c(0.025, 0.975))  
+```  
+
+
+The parametric bootstrap
+=============  
+
+- Question: "how might my estimate $\hat{f}(x)$ have been different if my outcomes were a different realization from the same underlying conditional distribution $P(y_i \mid x_i)$?  
+- Assumption: each outcome $y_i$ is a random sample from a conditional probability distribution $P(y \mid x)$.    
+- Problem: We don't know $P(y \mid x)$.  
+- Solution: Approximate $P(y \mid x)$ by $\hat{P}(y \mid x)$, the family of conditional distributions estimated from your sample.  
+- Key fact for implementation: $\hat{P}(y \mid x)$ is a parametric probability model parametrized by $\hat{f}(x)$, the fitted function.  
+
+
+The parametric bootstrap
+=============  
+
+Solution: simulate hypothetical ``alternative data universes'' from a parametric model fitted to your data.  
+
+Example: see `predimed_bootstrap.R`    
+
+
+
+
+Bootstrapping for risk estimation
 ========
 
-The essential idea of the bootstrap is to simulate synthetic data sets by resampling from the original sample.  This is often called the _nonparametric bootstrap._  
+Suppose that you're trying to construct a portfolio: that is, to decide how to allocate your wealth among $D$ financial assets.  Things you want might to track include:
+- the expected value of your portfolio at some point in the future (e.g. when you retire).  
+- the variance of your portfolio's value at some point in the future.  
+- the probability of losing some specific amount of money (10K, 20% of total value, etc)  
+- some measure of "tail risk," i.e. what a bad week/month/year might look like.  
 
-A common variation is called the _parametric bootstrap_: simulate synthetic data sets by simulating from a fitted parametric model.  
+Key idea: __use the bootstrap to simulate portfolio performance.__  (See portfolio.R)
 
-See `predimed_bootstrap.R`!  
+
+Bootstrapping for risk estimation
+========
+
+Notation:  
+
+- Let $T$ be our investing horizon (e.g. T = 20 days, T = 40 years, etc), and let $t$ index discrete time steps along the way.  
+
+- Let $X_{t,j}$ be the value of asset $j = 1, \ldots, D$ at time period $t$.  
+
+- Let $R_{t,j}$ be the _return_ of asset $j$ in period $t$, so that we have the following recursive update:  
+
+$$
+X_{t,j} = X_{t-1, j} \cdot (1 + R_{t,j})
+$$
+
+
+Bootstrapping for risk estimation
+========
+
+Notation:  
+- A portfolio is a set of investment weights over assets: $(w_{t1}, w_{t2}, \ldots, w_{tD})$.  Note: these weights might be fixed, or they might change over time. 
+
+- The value of your portfolio is the weighted sum of the value of your assets:  
+
+$$
+W_{t} = \sum_{j=1}^D w_{t,j} X_{t,j}
+$$
+
+
+Bootstrapping for risk estimation
+========
+
+We care about $W_T$: the random variable describing your terminal wealth after $T$ investment periods.
+
+Problem: this random variable is a super-complicated, nonlinear function of $T \times D$ individual asset returns:
+
+$$
+W_T = f(R) \quad \mbox{where} \quad R = \{R_{t,j} : t = 1, \ldots, T; j = 1, \ldots, D\}
+$$
+
+Bootstrapping for risk estimation
+========
+
+If we knew the asset returns, we could evaluate this function recursively, starting with initial wealth $W_0$ at time $t=0$ and sweeping through time $t=T$:  
+
+Starting with initial wealth $X^{(i)}_{1, j}$ in each asset, we sweep through from $t=1$ to $t=T$:  
+
+$$
+\begin{aligned}
+X^{(f)}_{t, j} &= X^{(i)}_{t, j} \cdot (1 + R_{t,j}) &\quad \mbox{(Update each asset)}  \\
+W_{t} &= \sum_{j=1}^D w_{t,j} X^{(f)}_{t,j}  &\quad \mbox{(Sum over assets)}  \\
+X^{(i)}_{t+1,j} &= w_{t+1,j} \cdot W_{t}  &\quad \mbox{(Rebalance)}   \\
+\end{aligned}
+$$
+
+
+Bootstrapping for risk estimation
+========
+
+But of course, we don't know the asset returns!  This suggests that we should use a Monte Carlo simulation, where we repeat the following `for` loop many times.  
+
+For $t = 1, \ldots, T$:
+  1. Simulate $R_t = (R_{t1}, R_{t2}, \ldots,  R_{tD})$ from the joint probability distribution of asset returns at time $t$.  
+  2. Use these returns to update $X_{j,t}$, the value of your holdings in each asset at step $t$.
+  3. Rebalance your portfolio to the target allocation.   
+
+The precise math of the update and rebalance steps are on the previous slide.  
+
+
+Bootstrapping for risk estimation
+========
+
+The difficult step here is (1): simulate a high-dimensional vector of asset returns from its joint probability distribution.  
+- very complicated correlation structure  
+- probably not something simple like a Gaussian!  
+
+In general, using simple parametric probability models (e.g. multivariate Gaussian) to describe high-dimensional joint distributions is a very dicey proposition.  
+
+
+A simple approach: bootstrap resampling  
+========
+
+Suppose we have $M$ past samples of the asset returns, stacked in a matrix:
+
+$$
+R = \left(
+\begin{array}{r r r r}
+R_{11} & R_{12} & \cdots & R_{1D} \\
+R_{21} & R_{22} & \cdots & R_{2D} \\
+\vdots & && \\
+R_{M1} & R_{M2} & \cdots & R_{MD}
+\end{array}
+\right)
+$$
+
+where $R_{tj}$ is the return of asset $j$ in period $t$.  
+
+
+A simple approach: bootstrap resampling  
+========
+
+The key idea of bootstrap resampling is the following:  
+- We may not be able to describe what the joint distribution $P(R_1, \ldots, R_D)$ is.  
+- But _we do know that every row of this $R$ matrix is a sample from this joint distribution._
+- So instead of sampling from some theoretical joint distribution, we will sample from the sample---i.e. we will bootstrap the past data.  
+- Thus every time we need a new draw from the joint distribution $P(R_1, \ldots, R_D)$, we randomly sample (with replacement) a single row of $R$.
+
+
+A simple approach: bootstrap resampling  
+========
+
+Thus our Monte Carlo simulation looks like the following at each draw.
+
+For $t = 1, \ldots, T$:
+  1. Simulate $R_t = (R_{t1}, R_{t2}, \ldots,  R_{tD})$ by drawing a whole row, with replacement, from our matrix of past returns.  
+  2. Use these returns to update $X_{j,t}$, the value of your holdings in each asset at step $t$.
+  3. Rebalance your portfolio to the target allocation.   
+
+
+Example
+========
+
+Let's go to the R code!  See `portfolio.R` on the website.  
+
+
+Key discussion question
+========
+type: prompt
+
+__Why do we draw an entire row of $R$ at a time?__
 

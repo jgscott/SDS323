@@ -129,21 +129,21 @@ R scripts:
 
 
 
-### Resampling methods 
+### The bootstrap
 
-<!-- [Slides here.](http://rpubs.com/jgscott/resampling)    
-  
-Reading: Chapter 5 of "Introduction to Statistical Learning."
+[Slides here.](slides/08_bootstrap/08_bootstrap.pdf)
+
+Reading: Chapter 5 of "Data Science: A Gentle Introduction" and Chapter 5.2 of "Statistical Learning."  
 
 In class:  
-- [bootstrap.R](r/bootstrap.R)  
+- [creatinine_bootstrap.R](r/creatinine_bootstrap.R)  
 - [residual_resampling.R](r/residual_resampling.R)  
 - [predimed_bootstrap.R](data/predimed_bootstrap.R)    
-
+- [portfolio.R](data/portfolio.R)   
 - [chymotrypsin.csv](data/chymotrypsin.csv)   
 - [ethanol.csv](data/ethanol.csv)    
 - [predimed.csv](data/predimed.csv)    
- -->
+
 
 
 

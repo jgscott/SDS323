@@ -1,6 +1,4 @@
-###################################################
-############# Orange Juice Regression #############
-###################################################
+# Orange Juice Regression #
 library(tidyverse)
 
 ## read in the data
@@ -22,15 +20,6 @@ reg = lm(logmove ~ log(price) + brand, data=oj)
 summary(reg) ## coef, tests, fit
 coef(reg) ## just coefficients
 
-## create some data for prediction, using the data.frame function
-## note the care in specifying brand factor (levels must match original data)
-## we don't need all variables in oj; just those used as covariates in reg.
-newdata=data.frame(price=rep(4,3), 
-	brand=factor(c("tropicana","minute.maid","dominicks"),levels=levels(oj$brand)))
-## predict
-predict(reg, newdata=newdata)  ## predicted log units moved
-exp(predict(reg, newdata=newdata)) ## predicted # of units moved
-
 ## under the hood: `design matrices' and model.matrix
 x = model.matrix( ~ log(price) + brand, data=oj)
 x[1,] ## first obsv of design matrix
@@ -43,24 +32,24 @@ reg_interact = lm(logmove ~ log(price)*brand, data=oj)
 summary(reg_interact)
 ## compare brand-specific log(price) slopes to our earlier elasticity (-3.1)
 
+
 ##### investigating advertisement
-# class exercise: write an equation that represents this model
-# in the form of an equation for f(x)
-reg_ads <- lm(logmove ~ log(price)*brand + feat, data=oj)
+
+# main effect only for feat
+reg_ads = lm(logmove ~ log(price)*brand + feat, data=oj)
 summary(reg_ads)
 
 
-## look at the advertisement effect on elasticity
-reg_ads2 <- lm(logmove ~ log(price)*(brand+feat), data=oj)
+## two-way interaction between price:brand and price:feat
+reg_ads2 = lm(logmove ~ log(price)*(brand+feat), data=oj)
 summary(reg_ads2)
 
 ## and finally, consider 3-way interactions
-reg_ads3 <- lm(logmove ~ log(price)*brand*feat, data=oj)
+reg_ads3 = lm(logmove ~ log(price)*brand*feat, data=oj)
 summary(reg_ads3)
 
 
 ## fit plots for the 3-way interaction
-
 # Add predictions to the data frame
 oj$reg_ads3_fitted = fitted(reg_ads3)
 

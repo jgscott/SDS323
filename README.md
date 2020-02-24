@@ -101,11 +101,11 @@ Reading: Chapter 3 of "Introduction to Statistical Learning."
 In class:  
 - [oj.R](r/oj.R) and [oj.csv](data/oj.csv)   
 - [saratoga_lm.R](r/saratoga_lm.R)  
-- [gft_train.csv](data/gft_train.csv) and [gft_test.csv](data/gft_test.csv).  The goal here is to imagine you work at the CDC: build a flu-prediction model using the training data (`cdcflu` is the outcome) and make predictions on the testing data.  
+
 
 ### Classification
 
-<!-- [Slides here.](http://rpubs.com/jgscott/classification)
+[Slides here.](slides/06-classification/06-classification.pdf)  
 
 Reading: Chapter 4 of "Introduction to Statistical Learning."
 
@@ -115,7 +115,19 @@ In class:
 - [congress109_bayes.R](r/congress109_bayes.R)  
 - [congress109.csv](data/congress109.csv)   
 - [congress109members.csv](data/congress109members.csv)   
- -->
+
+
+### Model selection and regularization  
+
+[Slides here.](slides/07-selection_regularization/07-selection_regularization.pdf)
+
+Reading: Chapter 5.1 and Chapter 6 of _Introduction to Statistical Learning_.  
+
+R scripts:  
+- [semiconductor.R](r/semiconductor.R) and [semiconductor.csv](data/semiconductor.csv)  
+- [gft_train.csv](data/gft_train.csv) and [gft_test.csv](data/gft_test.csv).  The goal here is to imagine you work at the CDC: build a flu-prediction model using the training data (`cdcflu` is the outcome) and make predictions on the testing data.  
+
+
 
 ### Resampling methods 
 
@@ -133,13 +145,7 @@ In class:
 - [predimed.csv](data/predimed.csv)    
  -->
 
-### Model selection and regularization  
 
-<!-- [Slides here.](http://rpubs.com/jgscott/selection_regularization)  
-
-Reading: chapter 6 of _Introduction to Statistical Learning_.  
-
- -->
 
 ### Clustering
 

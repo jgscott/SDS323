@@ -126,6 +126,14 @@ What's the effect of a 5 mph breeze on comfort?  It depends!
 - When it's hot outside, a 5 mph breeze makes things more pleasant.  
 - What about the effect of the same breeze when it's cold outside?  
 
+
+Other simple examples
+=====
+
+What's the effect of a 5 mph breeze on comfort?  It depends!
+- When it's hot outside, a 5 mph breeze makes things more pleasant.  
+- What about the effect of the same breeze when it's cold outside?  
+
 What's the effect of two Tylenol pills on a headache?  It depends!  
 - This dose will help a headache in a 165 pound adult human being.  
 - What about the effect of that same dose on a 13,000 pound African elephant?  
@@ -137,7 +145,7 @@ Linear models and interactions
 Interactions are about capturing these context-specific effects by correctly modeling the _joint effect_ of more than one feature at once.  
 
 The real world is full of interactions!  
-- house price versus (square footage, distance to downtown)  
+- house price versus (square footage, location)  
 - college GPA versus (SAT Math score, college major)  
 - health outcomes vs (ACE inhibitors, pregnancy)  
 
@@ -172,39 +180,6 @@ Each brand occupies a well-defined price range.
 Sales decrease with price (duh).  
 
 
-OJ example: teaching points
-========================================================
-
-- Log-linear models: thinking about _scale_ in linear models.  
-
-- Interpreting regression models when some of the predictors are categorical (factor effects, model matrices).    
-
-- Interactions.  
-
-
-Log-linear models
-=====
-
-- When fitting a linear model (_this_ goes up, _that_ goes down), think about the _scale_ on which you expect to find linearity.  
-
-- A very common scale is to model the mean for $\log(y)$ rather than $y$.  Remember, this allows us to model _multiplicative_ rather than _additive_ change.  
-
-$$
-log(y) = \log(\beta_0) + \beta_1 x \iff y = \beta_0 e^{\beta_1 x}
-$$
-
-- Change $x$ by one unit $\longrightarrow$ multiply $E(y \mid x)$ by $e^{\beta_1}$ units.  
-
-
-Log-linear models
-=====
-
-Whenever $y$ changes on a percentage scale, use $\log(y)$ as a response:  
-- prices: "Foreclosed homes sell at a 20\% discount..."
-- sales: "Our Super Bowl ad improved y.o.y. sales by 7% on average, across all product categories."  
-- volatility, failures, weather events... lots of things that are non-negative are expressed most naturally on a log scale.  
-
-
 OJ: price elasticity  
 =====
 class: small-code
@@ -215,7 +190,7 @@ $$
 \log(y) = \gamma \log(\mathrm{price}) + x \cdot \beta
 $$
 
-The rough interpretation of a log-log regression like this: for every 1% increase in price, we can expect a $\gamma \%$ change in sales.   
+The rough interpretation of a log-log regression like this: for every 1% increase in price, we can expect a $\gamma \%$ change in sales, holding variables in $x$ constant.   
 
 Let's try this in R, using `brand` as a feature ($x$):
 
@@ -331,9 +306,11 @@ Interactions
 Remember: an interaction is when one feature changes how another feature acts on y.    
 
 In regression, an interaction is expressed as the product of two features:
+
 $$
 E(y \mid x) = f(x) = \beta_0 + \beta_1 x_2 + \beta_2 x_2 + \beta_{12} x_1 x_2 + \cdots 
 $$
+
 so that the effect on $y$ of a one-unit increase in $x_1$ is $\beta_1 + \beta_{12} x_2$.  (It depends on $x_2$!)
 
 
@@ -378,14 +355,13 @@ Interactions: OJ
 =====
 
 - A key question: what changes when we feature a brand?  Here, this means in-store display promo or flier ad  (`feat` in `oj.csv`):  
-    1. You could model the additive effect of `feat` on log sales volume...  
-    2. Or (1) _and_ an overall effect of `feat` on price elasticity...  
-    3. Or you could model a _brand-specific_ effect of `feat` on elasticity.    
+    1. Maybe `feat` changes sales, but doesn't affect price sensitivity (no interaction)... 
+    2. Or maybe `feat` changes sales and also affects price sensitivity, but in the same way for all brands (two-way interaction)...
+    3. Or maybe `feat` changes sales and affects price sensitivity in _different ways for different brands_ (three-way interaction!)  
 
 
-- Let's see the R code in `oj.R` for runs of all three models.
+- Let's see the R code in `oj.R` for all three models.  Goal: connect the regression formula to a specific assumption about the underlying system.       
 
-- Goal: connect the regression formula and output to a specific equation, i.e. $f(x) = E(y \mid x)$ for each brand individually.      
 
 Brand-specific elasticities
 =====
@@ -467,25 +443,11 @@ feat dominicks minute.maid tropicana
    1     0.257       0.289     0.166
 ```
 
-Because Minute Maid was more heavily promoted, AND promotions have a negative effect on elasticity, we were confounding the two effects on price when we estimated an elasticity common to all brands.  
+Because Minute Maid was more heavily promoted, AND promotions have a negative effect on elasticity, we were confounding the two effects on price when we estimated an elasticity without accounting for `feat`.  
 
 Including `feat` helped deconfound the estimate! 
-
-
-Take-home messages: transformations
-=====
-
-- Transformations help us find the most natural scale on which to express the relationship between $x$ and $y$.  The log transformation is easily the most common.
-- Exponential growth/decay in $y$ versus $x$:  
-$$
-\widehat{log(y)} = \beta_0 + \beta_1 x  \iff \hat{y} = e^{\beta_0} \cdot e^{\beta_1 x}
-$$
-- Power law (elasticity model) in $y$ versus $x$:  
-$$
-\widehat{log(y)} = \beta_0 + \beta_1 \log(x)  \iff \hat{y} = e^{\beta_0} \cdot x^{\beta_1}
-$$
-
-
+ 
+ 
 Take-home messages: dummy variables
 =====
 

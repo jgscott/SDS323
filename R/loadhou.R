@@ -105,7 +105,7 @@ D_train = arrange(D_train, KHOU)
 y_train = D_train$COAST
 X_train = data.frame(KHOU=jitter(D_train$KHOU))
 
-knn_model = knn.reg(X_train, X_train, y_train, k = 3)
+knn_model = knn.reg(X_train, X_train, y_train, k = 75)
 
 D_train$ypred = knn_model$pred
 p_train = ggplot(data = D_train) + 

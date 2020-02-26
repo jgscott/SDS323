@@ -86,7 +86,7 @@ Reading: Chapters 1-2 of "Introduction to Statistical Learning."
 In class:  
 - [loadhou.R](R/loadhou.R) and [loadhou.csv](data/loadhou.csv)   
 
-<!-- - [spamtoy.R](r/spamtoy.r)  
+<!-- - [spamtoy.R](R/spamtoy.r)  
 - [spamfit.csv](data/spamfit.csv)   
 - [spamtest.csv](data/spamtest.csv)   
  -->
@@ -99,8 +99,8 @@ In class:
 Reading: Chapter 3 of "Introduction to Statistical Learning."
 
 In class:  
-- [oj.R](r/oj.R) and [oj.csv](data/oj.csv)   
-- [saratoga_lm.R](r/saratoga_lm.R)  
+- [oj.R](R/oj.R) and [oj.csv](data/oj.csv)   
+- [saratoga_lm.R](R/saratoga_lm.R)  
 
 
 ### Classification
@@ -110,9 +110,9 @@ In class:
 Reading: Chapter 4 of "Introduction to Statistical Learning."
 
 In class:  
-- [glass.R](r/glass.R)  
-- [glass_mlr.R](r/glass_mlr.R)  
-- [congress109_bayes.R](r/congress109_bayes.R)  
+- [glass.R](R/glass.R)  
+- [glass_mlr.R](R/glass_mlr.R)  
+- [congress109_bayes.R](R/congress109_bayes.R)  
 - [congress109.csv](data/congress109.csv)   
 - [congress109members.csv](data/congress109members.csv)   
 
@@ -124,7 +124,7 @@ In class:
 Reading: Chapter 5.1 and Chapter 6 of _Introduction to Statistical Learning_.  
 
 R scripts:  
-- [semiconductor.R](r/semiconductor.R) and [semiconductor.csv](data/semiconductor.csv)  
+- [semiconductor.R](R/semiconductor.R) and [semiconductor.csv](data/semiconductor.csv)  
 - [gft_train.csv](data/gft_train.csv) and [gft_test.csv](data/gft_test.csv).  The goal here is to imagine you work at the CDC: build a flu-prediction model using the training data (`cdcflu` is the outcome) and make predictions on the testing data.  
 
 
@@ -136,10 +136,10 @@ R scripts:
 Reading: Chapter 5 of "Data Science: A Gentle Introduction" and Chapter 5.2 of "Statistical Learning."  
 
 In class:  
-- [creatinine_bootstrap.R](r/creatinine_bootstrap.R)  
-- [residual_resampling.R](r/residual_resampling.R)  
-- [predimed_bootstrap.R](data/predimed_bootstrap.R)    
-- [portfolio.R](data/portfolio.R)   
+- [creatinine_bootstrap.R](R/creatinine_bootstrap.R)  
+- [residual_resampling.R](R/residual_resampling.R)  
+- [predimed_bootstrap.R](R/predimed_bootstrap.R)    
+- [portfolio.R](R/portfolio.R)   
 - [chymotrypsin.csv](data/chymotrypsin.csv)   
 - [ethanol.csv](data/ethanol.csv)    
 - [predimed.csv](data/predimed.csv)    

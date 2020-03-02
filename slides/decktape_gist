@@ -2,4 +2,5 @@
 
 ~/node_modules/decktape/decktape.js 05_linear_models.html 05_linear_models.pdf -s '1280x960'
 
-~/node_modules/decktape/decktape.js 08_bootstrap.html 08_bootstrap.pdf -s '1280x960'
+~/node_modules/decktape/decktape.js 05-selection_regularization.html 05-selection_regularization.pdf -s '1280x960'
+

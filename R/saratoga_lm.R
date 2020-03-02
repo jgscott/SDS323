@@ -77,14 +77,20 @@ rmse_vals = do(100)*{
   lm2 = lm(price ~ . - sewer - waterfront - landValue - newConstruction, data=saratoga_train)
   lm3 = lm(price ~ (. - sewer - waterfront - landValue - newConstruction)^2, data=saratoga_train)
   
+  lm_dominate = lm(price ~ lotSize + age + livingArea + pctCollege + 
+                     bedrooms + fireplaces + bathrooms + rooms + heating + fuel +
+                     centralAir + lotSize:heating + livingArea:rooms + newConstruction + livingArea:newConstruction, data=saratoga_train)
+  
   # Predictions out of sample
   yhat_test1 = predict(lm1, saratoga_test)
   yhat_test2 = predict(lm2, saratoga_test)
   yhat_test3 = predict(lm3, saratoga_test)
+  yhat_test4 = predict(lm_dominate, saratoga_test)
   
   c(rmse(saratoga_test$price, yhat_test1),
     rmse(saratoga_test$price, yhat_test2),
-    rmse(saratoga_test$price, yhat_test3))
+    rmse(saratoga_test$price, yhat_test3),
+    rmse(saratoga_test$price, yhat_test4))
 }
 
 rmse_vals

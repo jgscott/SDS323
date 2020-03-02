@@ -46,15 +46,12 @@ It is pretty much impossible to write a complete, high quality report of a data 
 
 - Use good judgment about your audience when introducing the question.  This needn't be long, but it should be clear.  Don't assume too much prior knowledge of a problem.  Obviously if everyone in your audience already knows the question, this can be extremely brief, but at least some introduction to the question for the purpose of context is almost always warranted.)
 
-- Always be clear about what data/variables you used to address the question.  This is where you need to get specific.  For example, suppose you are trying to build a model to predict the price of a house for tax purposes.  Don't say, "I ran a regression" when you instead can say, "I fit a linear regression model to predict price that included a house's size and neighborhood as predictors."  Justify important or nonobvious features of your modeling approach. 
+- Always be clear about what data/variables you used to address the question.  This is where you most likely need to get specific.  For example, suppose you are building a model to predict the price of a house for tax purposes.  Don't say, "I ran a regression" when you instead can say, "I fit a linear regression model to predict price that included a house's size and neighborhood as predictors." (Or list the predictors in a table.) Justify important or nonobvious features of your modeling approach. 
 
-- Usually your Data descriptions will contain plots or tables (although occasionally they won't).  If you feel that a plot helps the reader understand the problem or data set itself---as opposed to your results---then go ahead and include it.  A great example here is Tables 1 and 2 in the [main paper on the PREDIMED study](http://www.nejm.org/doi/pdf/10.1056/NEJMoa1200303).  These tables help the reader understand some important properties of the data and approach, but not the results of the study itself.  
+- Usually your Data description will contain plots or tables (although occasionally not).  If you feel that a plot helps the reader understand some crucial aspect of the problem or data set itself---as opposed to your results---then include it.  A great example here is Tables 1 and 2 in the [main paper on the PREDIMED study](http://www.nejm.org/doi/pdf/10.1056/NEJMoa1200303).  These tables help the reader understand some important properties of the data and approach, but not the results of the study itself.  
 
-3) Results  
-In your results section, include any figures and tables necessary to make your case.  Label them (Figure 1, 2, etc), give them informative captions, and refer to them in the text by their numbered labels where you discuss them.   Typical things to include here may include: pictures of the data; pictures and tables that show the fitted model; tables of model coefficients and summaries.  
+- In your results section, include any figures and tables necessary to make your case.  Label them (Figure 1, 2, etc), give them informative captions, and refer to them in the text by their numbered labels where you discuss them.   Typical things to include here may include: pictures of the data; pictures and tables that show the fitted model; tables of model coefficients and summaries.  
 
-4) Conclusion  
-What did you learn from the analysis?  What is the answer, if any, to the question you set out to address?
 
 ### General advice
 

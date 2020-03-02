@@ -110,6 +110,8 @@ In class:
 Reading: Chapter 4 of "Introduction to Statistical Learning."
 
 In class:  
+- [spamtoy.R](r/spamtoy.r)  
+- [spamfit.csv](data/spamfit.csv) and [spamtest.csv](data/spamtest.csv)   
 - [glass.R](R/glass.R)  
 - [glass_mlr.R](R/glass_mlr.R)  
 - [congress109_bayes.R](R/congress109_bayes.R)  

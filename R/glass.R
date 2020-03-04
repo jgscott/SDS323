@@ -97,8 +97,8 @@ sum(knn25 != y_test)/n_test
 
 ## for illustration, consider the RIxMg plane (i.e., just 2D)
 # X = dplyr::select(fgl, RI, Mg)
-X = dplyr::select(fgl, -type)
-X = select(fgl, -Si, -Fe, -type)
+# X = dplyr::select(fgl, -type)
+X = dplyr::select(fgl, -Si, -Fe, -type)
 y = fgl$type
 n = length(y)
 

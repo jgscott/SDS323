@@ -126,6 +126,7 @@ In class:
 Reading: Chapter 5.1 and Chapter 6 of _Introduction to Statistical Learning_.  
 
 R scripts:  
+- [saratoga_step.R](R/saratoga_step.R)  
 - [semiconductor.R](R/semiconductor.R) and [semiconductor.csv](data/semiconductor.csv)  
 - [gft_train.csv](data/gft_train.csv) and [gft_test.csv](data/gft_test.csv).  The goal here is to imagine you work at the CDC: build a flu-prediction model using the training data (`cdcflu` is the outcome) and make predictions on the testing data.  
 

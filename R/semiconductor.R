@@ -1,30 +1,30 @@
+# lasso regression using the gamlr library
+library(gamlr) 
+
 semiconductor = read.csv("../data/semiconductor.csv")
 n = nrow(semiconductor)
 
 ## full model
 full = glm(FAIL ~ ., data=semiconductor, family=binomial)
 
+summary(full)
+dim(semiconductor)
+
 ## A forward stepwise procedure
 # null model
 null = glm(FAIL~1, data=semiconductor)
-# forward stepwise: it takes a long time!
+
+# forward selection: it takes a long time!
 system.time(fwd <- step(null, scope=formula(full), dir="forward"))
 length(coef(fwd)) # chooses around 70 coef
 
 
-#### lasso (glmnet does L1-L2, gamlr does L0-L1)
-library(gamlr) 
-
 # for gamlr, and most other functions, you need to create your own numeric
-# design matrix.  We'll do this as a sparse `simple triplet matrix' using 
-# the sparse.model.matrix function.
-scx = sparse.model.matrix(FAIL ~ ., data=semiconductor)[,-1] # do -1 to drop intercept!
-# here, we could have also just done x = as.matrix(semiconductor[,-1]).
-# but sparse.model.matrix is a good way of doing things if you have factors.
-
+# design matrix.  We'll do this using the model.matrix function.
+scx = model.matrix(FAIL ~ .-1, data=semiconductor) # do -1 to drop intercept!
 scy = semiconductor$FAIL # pull out `y' too just for convenience
 
-# fit a single lasso
+# fit the lasso across a range of penalty pars
 sclasso = gamlr(scx, scy, family="binomial")
 plot(sclasso) # the path plot!
 
@@ -36,7 +36,7 @@ plot(log(sclasso$lambda), AICc(sclasso))
 
 # the coefficients at the AIC-optimizing value
 # note the sparsity
-scbeta = coef(sclasso) 
+scbeta_aic = coef(sclasso) 
 
 # optimal lambda
 log(sclasso$lambda[which.min(AICc(sclasso))])
@@ -58,7 +58,8 @@ sum(scb.min!=0) # note: this is random!  because of the CV randomness
 ## CV 1se selection (the default)
 scb.1se = coef(sccvl)
 log(sccvl$lambda.1se)
-sum(scb.1se!=0) ## usually selects all zeros (just the intercept)
+sum(scb.1se!=0)
+
 
 ## comparing AICc and the CV error
 # note that AIC is a pretty good estimate of out-of-sample deviance

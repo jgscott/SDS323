@@ -1,6 +1,9 @@
 # SDS 323: Statistical Learning and Inference  
 
-Meets MW 3:00 - 4:30 in Parlin 301.  
+Meets MW 3:00 - 4:30 on Zoom.  See Canvas for link.
+
+[__March 2020 updates to our syllabus__](ref/SDS323_Spring2020_Syllabus_UpdateMarch2020.docx)
+
 
 The team:  
 - [James Scott](https://jgscott.github.io/), instructor.  Drop-in office hours MW 1:30 to 2:45, GDC 7.516.  

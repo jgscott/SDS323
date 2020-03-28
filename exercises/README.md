@@ -1,15 +1,16 @@
 # Exercises
 
 - [Exercises 1](exercises01.md): Due at 5 PM on Friday, February 14, 2020.  
-- [Exercises 2](exercises02.md): Due at 5 PM on Friday, March 13, 2020.    
-- Exercises 3: TBA  
-- Exercises 4: TBA  
+- [Exercises 2](exercises02.md): Due at 3 PM on Monday, March 30, 2020.    
+- [Exercises 3](exercises03.md): Due at 3 PM on Monday, April 20, 2020.   
 
-<!-- - 
-- 
-- [Exercises 3](exercises03.md): Due at beginning of class on Monday, April 8, 2019.  
-- [Exercises 4](exercises04.md): Due at 5 PM on Friday, April 26, 2019.  
- -->
+
+# Project  
+
+I have posted a [set of project guidelines](./project-guidelines.pdf) to give you some more specifics about how to prepare and submit your reports.  But the basic idea is: find a problem and data set that interests you, approach it using the tools we've learned in class, and write a report.  
+
+Projects are due at 10 AM on Monday, May 11, 2020.  
+
 
 # How to prepare and submit your reports
 

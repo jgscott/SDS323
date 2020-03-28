@@ -134,8 +134,20 @@ R scripts:
 - [gft_train.csv](data/gft_train.csv) and [gft_test.csv](data/gft_test.csv).  The goal here is to imagine you work at the CDC: build a flu-prediction model using the training data (`cdcflu` is the outcome) and make predictions on the testing data.  
 
 
+### Unsupervised learning: clustering    
 
-### The bootstrap
+[Slides here.](slides/08-cluster/08-clustering.pdf)  
+Reading: chapter 10.3 of _Introduction to Statistical Learning_.
+
+In class:  
+- [cars.R](R/cars.R)  
+- [hclust_examples.R](R/hclust_examples.R)  
+- [linkage_minmax.R](R/linkage_minmax.R)  
+
+
+
+
+<!--  ### The bootstrap
 
 [Slides here.](slides/08_bootstrap/08_bootstrap.pdf)
 
@@ -151,24 +163,9 @@ In class:
 - [predimed.csv](data/predimed.csv)    
 
 
-
-
-### Clustering
-
-<!-- K-means clustering; hierarchical clustering.  Reference: chapters 10.1 and 10.3 of "Introduction to Statistical Learning."
-
-Slides: [Introduction to clustering.](http://rpubs.com/jgscott/clustering)    
-
-Scripts and data:  
-- [cars.R](R/cars.R) and [cars.csv](data/cars.csv) 
-- [hclust_examples.R](R/hclust_examples.R)   
-- [linkage_minmax.R](R/linkage_minmax.R)   
-- [we8there.R](R/we8there.R)   -->  
-
-
 ### Principal components analysis (PCA)
 
-<!-- Slides: [Introduction to PCA](http://rpubs.com/jgscott/PCA)    
+Slides: [Introduction to PCA](http://rpubs.com/jgscott/PCA)    
 
 Reference: ISL Section 10.2 
 
@@ -182,11 +179,9 @@ If time:
 - [FXmonthly.R](R/FXmonthly.R), [FXmonthly.csv](data/FXmonthly.csv), and [currency_codes.txt](data/currency_codes.txt)    
 - [gasoline.R](R/gasoline.R) and [gasoline.csv](data/gasoline.csv)   
 
- -->
 
 ### Trees
 
-<!-- 
 [Slides on trees](notes/trees.pdf).  
 
 Reading: Chapter 8 of _Introduction to Statistical Learning_.

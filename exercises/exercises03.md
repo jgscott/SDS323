@@ -48,7 +48,7 @@ First, listen to [this podcast from Planet Money.](https://www.npr.org/sections/
 
 2. How were the researchers from UPenn able to isolate this effect? Briefly describe their approach and discuss their result in the “Table 2” below, from the researchers' paper.  
 
-![Table 2](./ex3table2.png)
+![Table 2](./ex3table2.jpg)
 
 3. Why did they have to control for Metro ridership? What was that trying to capture?   
 
@@ -56,7 +56,7 @@ First, listen to [this podcast from Planet Money.](https://www.npr.org/sections/
 on the first column of the table. Can you describe the model being estimated here?
 What is the conclusion?
 
-![Table 4](./ex3table4.png)
+![Table 4](./ex3table4.jpg)
 
 
 

@@ -38,7 +38,7 @@ head(beta_hat)
 
 player_pm_logit = coef(fit)[colnames(player),] %>% sort(., decreasing=TRUE)
 head(player_pm_logit, 25)
-
+tail(player_pm_logit, 25)
 
 beta_hat[colnames(config),]
 beta_hat[colnames(team),]

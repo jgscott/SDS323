@@ -4,3 +4,4 @@
 
 ~/node_modules/decktape/decktape.js 08-clustering.html 08-clustering.pdf -s '1280x960'
 
+~/node_modules/decktape/decktape.js 09-PCA.html 09-PCA.pdf -s '1280x960'

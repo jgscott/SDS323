@@ -146,6 +146,27 @@ In class:
 
 
 
+### Unsupervised learning, continued: PCA, networks, and association rules
+
+Reading: rest of chapter 10 of _Introduction to Statistical Learning_.
+
+[Slides on PCA here.](slides/09-PCA/09-PCA.pdf)  
+- [nbc.R](R/nbc.R) 
+- [pca_intro.R](R/pca_intro.R)  
+- [congress109.R](R/congress109.R)  
+- [NCI60.R](R/NCI60.R)  
+
+
+[Intro slides on networks](notes/networks_intro.pdf).  
+
+[Slides on association rules here.](https://github.com/jgscott/ECO395M/blob/master/notes/association_rules.pdf)    
+
+Miscellaneous:  
+- [Gephi](https://gephi.org/), a great piece of software for exploring graphs  
+- [The Gephi quick-start tutorial](https://gephi.org/tutorials/gephi-tutorial-quick_start.pdf)  
+- a little Python utility for [scraping Spotify playlists](https://github.com/nithinphilips/spotifyscrape)  
+
+
 
 <!--  ### The bootstrap
 

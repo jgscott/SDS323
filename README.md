@@ -159,6 +159,10 @@ Reading: rest of chapter 10 of _Introduction to Statistical Learning_.
 
 [Intro slides on networks](slides/arx/networks_intro.pdf).  
 
+[Intro slides on networks](slides/arx/Networks.pdf).  
+- [medici.R](R/medici.R)   
+- [playlists.R](R/playlists.R)   
+
 [Slides on association rules here.](slides/arx/association_rules.pdf)    
 
 Miscellaneous:  

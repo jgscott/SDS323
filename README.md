@@ -171,6 +171,11 @@ Miscellaneous:
 - a little Python utility for [scraping Spotify playlists](https://github.com/nithinphilips/spotifyscrape)  
 
 
+### Trees
+
+[Slides on trees](slides/arx/Trees.pdf).  
+
+Reading: Chapter 8 of _Introduction to Statistical Learning_.
 
 <!--  ### The bootstrap
 
@@ -205,10 +210,8 @@ If time:
 - [gasoline.R](R/gasoline.R) and [gasoline.csv](data/gasoline.csv)   
 
 
-### Trees
 
-[Slides on trees](notes/trees.pdf).  
-
-Reading: Chapter 8 of _Introduction to Statistical Learning_.
  -->
+
+
 

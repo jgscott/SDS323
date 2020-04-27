@@ -74,7 +74,7 @@ summary(model1)
 # the odds multipler on degree_z
 exp(0.095500)
 
-## what about with between-ness?
+## what about with page rank?
 pr_hh = page.rank(hhnet)$vector[zebra]
 names(pr_hh) = rownames(hh)
 pr_hh_z = scale(pr_hh)

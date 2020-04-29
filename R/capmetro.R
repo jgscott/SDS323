@@ -1,7 +1,6 @@
 library(tidyverse)
 library(lubridate)
 library(randomForest)
-library(gbm)
 library(pdp)
 
 # read in data and take a peak
@@ -100,7 +99,12 @@ x_test = x_all[-train_cases,]
 
 # fit the RF model with default parameter settings
 forest1 = randomForest(x=x_train, y=y_train, xtest=x_test)
+
+
 yhat_test = (forest1$test)$predicted
+
+forest1 = randomForest(boarding ~ day + temperature + min_of_day + precipYes + inSemester, data=capmetro362_train)
+yhat_test = predict(forest1, capmetro362_test)
 
 plot(yhat_test, y_test)
 
@@ -114,83 +118,30 @@ plot(forest1)
 varImpPlot(forest1)
 
 
-###
-# compare with boosted regression trees
-###
-
-# note: here we can use an lm-like formula syntax
-boost1 = gbm(boarding ~ day + temperature + min_of_day + precipYes + inSemester, 
-               data = capmetro362_train,
-               interaction.depth=4, n.trees=500, shrinkage=.05)
-
-# Look at error curve -- stops decreasing much after ~300
-gbm.perf(boost1)
-
-# refit with ~ 350 trees
-boost1 = gbm(boarding ~ day + temperature + min_of_day + precipYes + inSemester, 
-             data = capmetro362_train,
-             interaction.depth=4, n.trees=350, shrinkage=.05)
-
-
-yhat_test_gbm = predict(boost1, capmetro362_test, n.trees=350)
-(yhat_test_gbm - y_test)^2 %>% mean %>% sqrt
-
-
-
-# What if we assume a Poisson error model?
-boost2 = gbm(boarding ~ day + temperature + min_of_day + precipYes + inSemester, 
-             data = capmetro362_train, distribution='poisson',
-             interaction.depth=4, n.trees=350, shrinkage=.05)
-
-# Note: the predictions for a Poisson model are on the log scale by default
-# use type='response' to get predictions on the original scale
-# all this is in the documentation, ?gbm
-yhat_test_gbm2 = predict(boost2, capmetro362_test, n.trees=350, type='response')
-(yhat_test_gbm2 - y_test)^2 %>% mean %>% sqrt
-
-# relative importance measures: how much each variable reduces the MSE
-summary(boost1)
-
 ####
 # Exploring the fit with partial dependence functions
 ####
 
-plot(boost1, 'min_of_day')
-plot(boost1, 'day')
-plot(boost1, 'precipYes')
-plot(boost1, 'inSemester')
-plot(boost1, 'temperature')
-
-# Note: can get these partial dependence functions directly from the pdp library
-p1 = pdp::partial(boost1, pred.var = 'min_of_day', n.trees=350)
+p1 = pdp::partial(forest1, pred.var = 'min_of_day')
 p1
+plot(p1)
 
-p2 = pdp::partial(boost1, pred.var = 'day', n.trees=350)
+p2 = pdp::partial(forest1, pred.var = 'day')
 p2
+plot(p2)
 
 
-p3 = pdp::partial(boost1, pred.var = 'precipYes', n.trees=350)
+p3 = pdp::partial(forest1, pred.var = 'precipYes')
 p3
 
-p4 = pdp::partial(boost1, pred.var = 'temperature', n.trees=350)
+p4 = pdp::partial(forest1, pred.var = 'temperature')
 p4
+plot(p4)
 
-p5 = pdp::partial(boost1, pred.var = c('min_of_day', 'day', 'inSemester'), n.trees=350)
+p5 = pdp::partial(forest1, pred.var = c('min_of_day', 'day', 'inSemester'))
 p5
 
 # This is nice when you want to look at interactions
 ggplot(p5) + geom_point(mapping=aes(x=min_of_day, y=yhat)) + 
   facet_grid(inSemester~day)
 
-
-# can plot the actual predictions, too
-capmetro362_test$yhat_gbm = yhat_test_gbm
-
-test_summ = capmetro362_test %>%
-  group_by(hour, day, inSemester) %>%
-  summarize(yhat_mean = mean(yhat_gbm))
-
-ggplot(data=test_summ) + 
-  geom_col(mapping=aes(x=hour, y=yhat_mean)) + 
-  facet_grid(inSemester~day) + 
-  xlim(c(8, 19))

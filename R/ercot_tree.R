@@ -23,7 +23,7 @@ load_test = load_coast_medium[-train_ind,]
 big.tree = rpart(COAST ~ KHOU_temp + hour, method="anova",data=load_train,
           control=rpart.control(minsplit=5, cp=1e-6, xval=10))
 
-# see ?rpart.control for fitting details
+# see for fitting details
 #  e.g. minsplit = minimum number of observations in a node in order
 #  					for a split to be attempted.
 # xval = number of CV folds
@@ -65,13 +65,13 @@ log2(length(unique(cvtree$where)))
 load_test$COAST_hat =  predict(cvtree, load_test)
 ggplot(filter(load_test, hour %in% c(5, 8, 15))) +
   geom_point(aes(x=KHOU_temp, y=COAST), alpha=0.1) + 
-  geom_line(aes(x=KHOU_temp, y=COAST_hat, color=factor(hour)), size=1)
+  geom_step(aes(x=KHOU_temp, y=COAST_hat, color=factor(hour)), size=1)
 
 
 load_test$COAST_hat =  predict(cvtree, load_test)
 ggplot(filter(load_test, hour %in% c(15, 19, 23))) +
   geom_point(aes(x=KHOU_temp, y=COAST), alpha=0.1) + 
-  geom_line(aes(x=KHOU_temp, y=COAST_hat, color=factor(hour)), size=1)
+  geom_step(aes(x=KHOU_temp, y=COAST_hat, color=factor(hour)), size=1)
 
 
 # calculate test_set RMSE

@@ -174,6 +174,9 @@ Miscellaneous:
 ### Trees
 
 [Slides on trees](slides/arx/Trees.pdf).  
+- [capmetro.R](R/capmetro.R)   
+ 
+
 
 Reading: Chapter 8 of _Introduction to Statistical Learning_.
 

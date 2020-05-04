@@ -176,9 +176,15 @@ Miscellaneous:
 [Slides on trees](slides/arx/Trees.pdf).  
 - [capmetro.R](R/capmetro.R)   
  
-
-
 Reading: Chapter 8 of _Introduction to Statistical Learning_.
+
+
+### Treatments 
+
+[A bit on treatment-effect estimation](slides/arx/Treatments.pdf). 
+- [abortion.R](R/abortion.R)   
+- [smallbeer.R](R/smallbeer.R)   
+
 
 <!--  ### The bootstrap
 

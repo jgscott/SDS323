@@ -5,22 +5,33 @@ beer = read.csv("../data/smallbeer.csv",
 head(beer)
 nrow(beer)
 
-# pooled fit: one elasticity for all beers
+# complete pooling: one elasticity for all beers
 allforone = lm(log(units) ~ log(price), data=beer)
 coef(allforone)
 
-# independent elasticities for each beer
+# no pooling: independent elasticities for each beer
 oneforall = lm(log(units) ~ log(price)*item, data=beer)
 
 # tons of NAs, lots of noisy coefficients
 coef(oneforall)
 hist(coef(oneforall)) ## super noisy zeros
 
+# getting the elasticities?
+price_main = coef(oneforall)[2]
+which_int = grep("log(price):item", names(coef(oneforall)), fixed=TRUE)
+price_int = coef(oneforall)[which_int]
+
+hist(price_main + price_int)
+
+## Clear this won't work
+
 # build some regression designs
 library(gamlr)
 
 x1 = sparse.model.matrix(~log(price)*item + factor(week)-1, data=beer)
 head(x1)
+
+# don't penalize the log price coefficient
 ml1 = cv.gamlr(x=x1, y=log(beer$units), free = 1, standardize=FALSE, verb=TRUE)
 coef(ml1)
 
@@ -30,24 +41,26 @@ which_int = grep("log(price):item", rownames(coef(ml1)), fixed=TRUE)
 price_int = coef(ml1)[which_int]
 
 # these look much more reasonable, though not all negative
-# of course price is not exogenous here!
+# and the elephant in the room: of course price is not exogenous here!
+# price is changing over time and in response to features that also predict demand
 hist(price_main + price_int)
 
 ####
+# Orthogonal ML instead
 # strategy: isolate "idiosyncratic" variation price and quantity sold
 # by first explicitly adjusting for item and week
 ####
 
 # OML steps 1-2
-xitem = sparse.model.matrix(~item-1, data=beer)
-xweek = sparse.model.matrix(~week-1, data=beer)
+xitem = sparse.model.matrix(~item-1, lmr=1e-5, data=beer)
+xweek = sparse.model.matrix(~week-1, lmr=1e-5, data=beer)
 xx = cbind(xweek, xitem)
 
-# variation in price predicted by item and week
-pfit = cv.gamlr(x=xx, y=log(beer$price), lmr=1e-5, standardize=FALSE)
+# isolate variation in log(price) predicted by item and week
+pfit = gamlr(x=xx, y=log(beer$price), lmr=1e-5, standardize=FALSE)
 
-# variation in quantity sold predicted by item and week
-qfit = cv.gamlr(x=xx, y=log(beer$units), lmr=1e-5, standardize=FALSE)
+# isolate variation in quantity sold predicted by item and week
+qfit = gamlr(x=xx, y=log(beer$units), lmr=1e-5, standardize=FALSE)
 
 # Calculate residuals: variation in price and units sold that
 # cannot be predicted by item and week
@@ -63,13 +76,20 @@ lqr = drop(log(beer$units) - predict(qfit, xx))
 library(tm)
 descr = Corpus(VectorSource(as.character(beer$description)))
 xtext = DocumentTermMatrix(descr)
-xtext = sparseMatrix(i=xtext$i,j=xtext$j,x=as.numeric(xtext$v>0), # convert from stm to Matrix format
-              dims=dim(xtext),dimnames=dimnames(xtext))
+
+# convert to Matrix format
+xtext = sparseMatrix(i=xtext$i,j=xtext$j, x=as.numeric(xtext$v>0),
+	dims=dim(xtext), dimnames=dimnames(xtext))
 colnames(xtext)
 
-xtreat = cbind(1,xtext,xweek)
+# look at interactions between text and log price residuals
+xtreat = cbind(1,xtext)
 ofit = gamlr(x=lpr*xtreat, y=lqr, standardize=FALSE, free=1)
+
+coef(ofit)
+
 gams = coef(ofit)[-1,]
+
 
 # create a testing matrix, matching each level to a row in X
 test_ind = match(levels(beer$item),beer$item)
@@ -81,5 +101,6 @@ el = drop(gams[1] + xtest%*%gams[(1:ncol(xtext))+1])
 hist(el, xlab="OML elasticities", xlim=c(-6,1), col="lightblue", main="",breaks=7)
 
 # high and low sensitivity brands
-names(sort(el)[1:20])
-names(sort(-el)[1:20])
+sort(el) %>% head(20)
+sort(el) %>% tail(20)
+
